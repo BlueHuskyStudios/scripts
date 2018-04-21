@@ -24,11 +24,13 @@ class SidebarController(
         model.delegate = this
     }
 
+
     var view: SidebarViewWrapper by Delegates.observable(view) { _, _, newView ->
         suppressChangeReactions = true
         model.loadFromView(view)
         suppressChangeReactions = false
     }
+
 
     override fun didShowOrHide(oldIsShown: Boolean, newIsShown: Boolean) {
         if (suppressChangeReactions) { return }
@@ -39,6 +41,11 @@ class SidebarController(
         else {
             view.addClass(sidebarHiddenClass)
         }
+    }
+
+
+    fun toggleHidden() {
+        model.isShown = !model.isShown
     }
 }
 

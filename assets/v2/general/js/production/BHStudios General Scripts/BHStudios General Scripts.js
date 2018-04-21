@@ -139,6 +139,19 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     simpleName: 'ButtonViewWrapper',
     interfaces: [WrappedHtmlView]
   };
+  function SidebarButtonController(buttonModel, sidebarController) {
+    this.buttonModel = buttonModel;
+    this.sidebarController = sidebarController;
+    this.buttonModel.delegate = this;
+  }
+  SidebarButtonController.prototype.didPress_9ojx7i$ = function (event) {
+    this.sidebarController.toggleHidden();
+  };
+  SidebarButtonController.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'SidebarButtonController',
+    interfaces: [ButtonModelDelegate]
+  };
   var sidebarHiddenClass;
   Delegates$observable$ObjectLiteral_1.prototype = Object.create(ObservableProperty.prototype);
   Delegates$observable$ObjectLiteral_1.prototype.constructor = Delegates$observable$ObjectLiteral_1;
@@ -193,6 +206,9 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
      else {
       addClass_0(this.view, [sidebarHiddenClass]);
     }
+  };
+  SidebarController.prototype.toggleHidden = function () {
+    this.model.isShown = !this.model.isShown;
   };
   function SidebarController$model$lambda(this$SidebarController, closure$model) {
     return function (f, f_0, newDelegate) {
@@ -289,6 +305,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   package$button.ButtonModelDelegate = ButtonModelDelegate;
   package$button.ButtonViewWrapper = ButtonViewWrapper;
   var package$sidebar = package$components.sidebar || (package$components.sidebar = {});
+  package$sidebar.SidebarButtonController = SidebarButtonController;
   Object.defineProperty(package$sidebar, 'sidebarHiddenClass', {
     get: function () {
       return sidebarHiddenClass;

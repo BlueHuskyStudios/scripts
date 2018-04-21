@@ -1,11 +1,6 @@
 package org.bh.scripts.general.components.button
 
 import org.w3c.dom.events.Event
-import kotlin.properties.Delegates
-
-
-
-typealias GenericEvent = (Event) -> Unit
 
 
 
