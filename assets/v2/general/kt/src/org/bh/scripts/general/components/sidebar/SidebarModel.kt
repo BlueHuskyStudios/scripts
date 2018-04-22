@@ -20,10 +20,10 @@ class SidebarModel(isShown: Boolean = false) {
 
     companion object {
         const val className = "sidebar"
-        const val sidebarHiddenClass = "sidebar-hidden"
+        const val sidebarShownClass = "sidebar-shown"
 
 
-        operator fun invoke(htmlElement: Element) = SidebarModel(htmlElement.hasClass(sidebarHiddenClass))
+        operator fun invoke(htmlElement: Element) = SidebarModel(isShown = htmlElement.hasClass(sidebarShownClass))
     }
 }
 

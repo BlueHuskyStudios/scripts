@@ -2,7 +2,8 @@ package org.bh.scripts.general.components.sidebar
 
 
 
-import org.bh.scripts.general.components.WrappedHtmlView
+import jQueryInterface.*
+import org.bh.scripts.general.components.*
 import org.w3c.dom.Element
 
 
@@ -13,4 +14,19 @@ import org.w3c.dom.Element
  */
 class SidebarViewWrapper(
         override val htmlElement: Element
-) : WrappedHtmlView<Element>
+) : WrappedHtmlView<Element> {
+    var isShown: Boolean
+        get() = elementResponsibleForHidingAndShowingTheSidebar.hasClass(SidebarModel.sidebarShownClass)
+        set(newValue) {
+            if (newValue)
+                elementResponsibleForHidingAndShowingTheSidebar.addClass(SidebarModel.sidebarShownClass)
+            else
+                elementResponsibleForHidingAndShowingTheSidebar.removeClass(SidebarModel.sidebarShownClass)
+        }
+
+    val elementResponsibleForHidingAndShowingTheSidebar get() = defaultElementResponsibleForHidingAndShowingTheSidebar
+
+    companion object {
+        val defaultElementResponsibleForHidingAndShowingTheSidebar = jq(":root")
+    }
+}
