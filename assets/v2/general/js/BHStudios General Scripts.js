@@ -3,14 +3,68 @@ if (typeof kotlin === 'undefined') {
 }
 this['BHStudios General Scripts'] = function (_, Kotlin) {
   'use strict';
+  var defineInlineFunction = Kotlin.defineInlineFunction;
   var Unit = Kotlin.kotlin.Unit;
+  var lazy = Kotlin.kotlin.lazy_klfg04$;
+  var toString = Kotlin.toString;
+  var PropertyMetadata = Kotlin.PropertyMetadata;
+  var addAll = Kotlin.kotlin.collections.addAll_ye1y7v$;
+  var Kind_OBJECT = Kotlin.Kind.OBJECT;
   var Kind_INTERFACE = Kotlin.Kind.INTERFACE;
   var addClass = Kotlin.kotlin.dom.addClass_hhb33f$;
   var removeClass = Kotlin.kotlin.dom.removeClass_hhb33f$;
   var hasClass = Kotlin.kotlin.dom.hasClass_46n0ku$;
-  var PropertyMetadata = Kotlin.PropertyMetadata;
   var Kind_CLASS = Kotlin.Kind.CLASS;
+  var get_parentElement = defineInlineFunction('BHStudios General Scripts.jQueryInterface.get_parentElement_s15u7w$', function ($receiver) {
+    return $receiver.parentElement;
+  });
+  function main$lambda() {
+    Setup_getInstance().performCommonPageConnections();
+    return Unit;
+  }
   function main(args) {
+    $(main$lambda);
+  }
+  var ArrayList_init = Kotlin.kotlin.collections.ArrayList_init_ww73n8$;
+  function Setup() {
+    Setup_instance = this;
+    this.sidebarButtonControllers_0 = ArrayList_init();
+  }
+  Setup.prototype.performCommonPageConnections = function () {
+    this.connectAllSidebarsToSidebarButtons_0();
+  };
+  function Setup$connectAllSidebarsToSidebarButtons$lambda() {
+    return $('.sidebar').get(0);
+  }
+  function Setup$connectAllSidebarsToSidebarButtons$lambda_0(closure$firstSidebarElement) {
+    return function (f, sidebarButtonElement) {
+      var tmp$;
+      var specifiedSidebarId = (tmp$ = sidebarButtonElement.getAttributeNode('for')) != null ? tmp$.value : null;
+      if (specifiedSidebarId != null) {
+        var sidebarElement = $('#' + toString(specifiedSidebarId)).get(0);
+        if (sidebarElement != null) {
+          return new SidebarButtonController(ButtonController$Companion_getInstance().invoke_2rdptt$(sidebarButtonElement), SidebarController$Companion_getInstance().invoke_ejp6n4$(sidebarElement));
+        }
+      }
+      return new SidebarButtonController(ButtonController$Companion_getInstance().invoke_2rdptt$(sidebarButtonElement), SidebarController$Companion_getInstance().invoke_ejp6n4$(closure$firstSidebarElement.value));
+    };
+  }
+  Setup.prototype.connectAllSidebarsToSidebarButtons_0 = function () {
+    var firstSidebarElement = lazy(Setup$connectAllSidebarsToSidebarButtons$lambda);
+    var controllers = $('.show-sidebar-button').map(Setup$connectAllSidebarsToSidebarButtons$lambda_0(firstSidebarElement));
+    addAll(this.sidebarButtonControllers_0, controllers);
+  };
+  Setup.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'Setup',
+    interfaces: []
+  };
+  var Setup_instance = null;
+  function Setup_getInstance() {
+    if (Setup_instance === null) {
+      new Setup();
+    }
+    return Setup_instance;
   }
   function WrappedHtmlView() {
   }
@@ -31,6 +85,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   function hasClass_0($receiver, possibleClass) {
     return hasClass($receiver.htmlElement, possibleClass);
   }
+  var LinkedHashSet_init = Kotlin.kotlin.collections.LinkedHashSet_init_287e2$;
   var ObservableProperty = Kotlin.kotlin.properties.ObservableProperty;
   Delegates$observable$ObjectLiteral.prototype = Object.create(ObservableProperty.prototype);
   Delegates$observable$ObjectLiteral.prototype.constructor = Delegates$observable$ObjectLiteral;
@@ -52,10 +107,14 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     this.closure$onChange(property, oldValue, newValue);
   };
   Delegates$observable$ObjectLiteral_0.$metadata$ = {kind: Kind_CLASS, interfaces: [ObservableProperty]};
-  function ButtonController(model, view) {
+  function ButtonController(initalModel, initialView) {
+    ButtonController$Companion_getInstance();
     this.suppressChangeReactions_0 = false;
-    this.model_v5gd25$_0 = new Delegates$observable$ObjectLiteral(ButtonController$model$lambda(this, model), model);
-    this.view_jr1yrn$_0 = new Delegates$observable$ObjectLiteral_0(ButtonController$view$lambda(this, model, view), view);
+    this.pressListeners_0 = LinkedHashSet_init();
+    this.model_v5gd25$_0 = new Delegates$observable$ObjectLiteral(ButtonController$model$lambda(this), initalModel);
+    this.view_jr1yrn$_0 = new Delegates$observable$ObjectLiteral_0(ButtonController$view$lambda(this), initialView);
+    this.didSetModel_0(initalModel);
+    this.didSetView_0(initialView);
   }
   var ButtonController$model_metadata = new PropertyMetadata('model');
   Object.defineProperty(ButtonController.prototype, 'model', {
@@ -75,21 +134,52 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
       this.view_jr1yrn$_0.setValue_9rddgb$(this, ButtonController$view_metadata, view);
     }
   });
-  var NotImplementedError_init = Kotlin.kotlin.NotImplementedError;
-  ButtonController.prototype.didPress_9ojx7i$ = function (event) {
-    throw new NotImplementedError_init('An operation is not implemented: ' + 'not implemented');
+  ButtonController.prototype.didSetModel_0 = function (newModel) {
+    newModel.delegate = this;
   };
-  function ButtonController$model$lambda(this$ButtonController, closure$model) {
-    return function (f, f_0, newDelegate) {
-      closure$model.delegate = this$ButtonController;
+  ButtonController.prototype.didSetView_0 = function (newView) {
+    this.suppressChangeReactions_0 = true;
+    loadFromView(this.model, newView);
+    this.suppressChangeReactions_0 = false;
+  };
+  ButtonController.prototype.didPress_9ojx7i$ = function (event) {
+    var tmp$;
+    tmp$ = this.pressListeners_0.iterator();
+    while (tmp$.hasNext()) {
+      var element = tmp$.next();
+      element(event);
+    }
+  };
+  ButtonController.prototype.addPressListener_gbr1zf$ = function (newPressListener) {
+    this.pressListeners_0.add_11rb$(newPressListener);
+  };
+  function ButtonController$Companion() {
+    ButtonController$Companion_instance = this;
+  }
+  ButtonController$Companion.prototype.invoke_2rdptt$ = function (htmlElement) {
+    return new ButtonController(ButtonModel$Companion_getInstance().invoke_2rdptt$(htmlElement), new ButtonViewWrapper(htmlElement));
+  };
+  ButtonController$Companion.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'Companion',
+    interfaces: []
+  };
+  var ButtonController$Companion_instance = null;
+  function ButtonController$Companion_getInstance() {
+    if (ButtonController$Companion_instance === null) {
+      new ButtonController$Companion();
+    }
+    return ButtonController$Companion_instance;
+  }
+  function ButtonController$model$lambda(this$ButtonController) {
+    return function (f, f_0, newModel) {
+      this$ButtonController.didSetModel_0(newModel);
       return Unit;
     };
   }
-  function ButtonController$view$lambda(this$ButtonController, closure$model, closure$view) {
+  function ButtonController$view$lambda(this$ButtonController) {
     return function (f, f_0, newView) {
-      this$ButtonController.suppressChangeReactions_0 = true;
-      loadFromView(closure$model, closure$view);
-      this$ButtonController.suppressChangeReactions_0 = false;
+      this$ButtonController.didSetView_0(newView);
       return Unit;
     };
   }
@@ -108,12 +198,31 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     view.htmlElement.addEventListener('click', loadFromView$lambda($receiver));
   }
   function ButtonModel() {
+    ButtonModel$Companion_getInstance();
     this.delegate = null;
   }
   ButtonModel.prototype.handleClick_9ojx7i$ = function (event) {
     var tmp$;
     (tmp$ = this.delegate) != null ? (tmp$.didPress_9ojx7i$(event), Unit) : null;
   };
+  function ButtonModel$Companion() {
+    ButtonModel$Companion_instance = this;
+  }
+  ButtonModel$Companion.prototype.invoke_2rdptt$ = function (htmlElement) {
+    return new ButtonModel();
+  };
+  ButtonModel$Companion.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'Companion',
+    interfaces: []
+  };
+  var ButtonModel$Companion_instance = null;
+  function ButtonModel$Companion_getInstance() {
+    if (ButtonModel$Companion_instance === null) {
+      new ButtonModel$Companion();
+    }
+    return ButtonModel$Companion_instance;
+  }
   ButtonModel.$metadata$ = {
     kind: Kind_CLASS,
     simpleName: 'ButtonModel',
@@ -139,20 +248,51 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     simpleName: 'ButtonViewWrapper',
     interfaces: [WrappedHtmlView]
   };
-  function SidebarButtonController(buttonModel, sidebarController) {
-    this.buttonModel = buttonModel;
+  function SidebarButtonController(buttonController, sidebarController) {
+    SidebarButtonController$Companion_getInstance();
+    this.buttonController = buttonController;
     this.sidebarController = sidebarController;
-    this.buttonModel.delegate = this;
+    this.buttonController.addPressListener_gbr1zf$(SidebarButtonController_init$lambda(this));
   }
   SidebarButtonController.prototype.didPress_9ojx7i$ = function (event) {
     this.sidebarController.toggleHidden();
   };
+  function SidebarButtonController$Companion() {
+    SidebarButtonController$Companion_instance = this;
+  }
+  SidebarButtonController$Companion.prototype.invoke_oqewb4$ = function (buttonModel, sidebarController) {
+    var tmp$;
+    if (buttonModel != null && sidebarController != null) {
+      tmp$ = new SidebarButtonController(buttonModel, sidebarController);
+    }
+     else {
+      tmp$ = null;
+    }
+    return tmp$;
+  };
+  SidebarButtonController$Companion.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'Companion',
+    interfaces: []
+  };
+  var SidebarButtonController$Companion_instance = null;
+  function SidebarButtonController$Companion_getInstance() {
+    if (SidebarButtonController$Companion_instance === null) {
+      new SidebarButtonController$Companion();
+    }
+    return SidebarButtonController$Companion_instance;
+  }
+  function SidebarButtonController_init$lambda(this$SidebarButtonController) {
+    return function (event) {
+      this$SidebarButtonController.didPress_9ojx7i$(event);
+      return Unit;
+    };
+  }
   SidebarButtonController.$metadata$ = {
     kind: Kind_CLASS,
     simpleName: 'SidebarButtonController',
     interfaces: [ButtonModelDelegate]
   };
-  var sidebarHiddenClass;
   Delegates$observable$ObjectLiteral_1.prototype = Object.create(ObservableProperty.prototype);
   Delegates$observable$ObjectLiteral_1.prototype.constructor = Delegates$observable$ObjectLiteral_1;
   function Delegates$observable$ObjectLiteral_1(closure$onChange, initialValue_0) {
@@ -173,10 +313,13 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     this.closure$onChange(property, oldValue, newValue);
   };
   Delegates$observable$ObjectLiteral_2.$metadata$ = {kind: Kind_CLASS, interfaces: [ObservableProperty]};
-  function SidebarController(model, view) {
+  function SidebarController(initialModel, initialView) {
+    SidebarController$Companion_getInstance();
     this.suppressChangeReactions_0 = false;
-    this.model_htwi0p$_0 = new Delegates$observable$ObjectLiteral_1(SidebarController$model$lambda(this, model), model);
-    this.view_7bbqjl$_0 = new Delegates$observable$ObjectLiteral_2(SidebarController$view$lambda(this, model, view), view);
+    this.model_htwi0p$_0 = new Delegates$observable$ObjectLiteral_1(SidebarController$model$lambda(this), initialModel);
+    this.view_7bbqjl$_0 = new Delegates$observable$ObjectLiteral_2(SidebarController$view$lambda(this), initialView);
+    this.didSetModel_0(initialModel);
+    this.didSetView_0(initialView);
   }
   var SidebarController$model_metadata = new PropertyMetadata('model');
   Object.defineProperty(SidebarController.prototype, 'model', {
@@ -196,31 +339,80 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
       this.view_7bbqjl$_0.setValue_9rddgb$(this, SidebarController$view_metadata, view);
     }
   });
+  SidebarController.prototype.didSetModel_0 = function (newModel) {
+    newModel.delegate = this;
+  };
+  SidebarController.prototype.didSetView_0 = function (newView) {
+    this.suppressChangeReactions_0 = true;
+    if (newView == null) {
+      this.didShowOrHide_dqye30$(this.model.isShown, this.model.isShown);
+    }
+     else {
+      loadFromView_0(this.model, newView);
+    }
+    this.suppressChangeReactions_0 = false;
+  };
   SidebarController.prototype.didShowOrHide_dqye30$ = function (oldIsShown, newIsShown) {
     if (this.suppressChangeReactions_0) {
       return;
     }
-    if (newIsShown) {
-      removeClass_0(this.view, [sidebarHiddenClass]);
+    var view = this.view;
+    if (view == null) {
+      if (newIsShown) {
+        $('.sidebar').removeClass(SidebarModel$Companion_getInstance().sidebarHiddenClass);
+      }
+       else {
+        $('.sidebar').addClass(SidebarModel$Companion_getInstance().sidebarHiddenClass);
+      }
     }
      else {
-      addClass_0(this.view, [sidebarHiddenClass]);
+      if (newIsShown) {
+        removeClass_0(view, [SidebarModel$Companion_getInstance().sidebarHiddenClass]);
+      }
+       else {
+        addClass_0(view, [SidebarModel$Companion_getInstance().sidebarHiddenClass]);
+      }
     }
   };
   SidebarController.prototype.toggleHidden = function () {
     this.model.isShown = !this.model.isShown;
   };
-  function SidebarController$model$lambda(this$SidebarController, closure$model) {
-    return function (f, f_0, newDelegate) {
-      closure$model.delegate = this$SidebarController;
+  function SidebarController$Companion() {
+    SidebarController$Companion_instance = this;
+    this.allSidebars_qajbuu$_0 = lazy(SidebarController$Companion$allSidebars$lambda);
+  }
+  SidebarController$Companion.prototype.invoke_ejp6n4$ = function (htmlElement) {
+    return htmlElement == null ? SidebarController$Companion_getInstance().allSidebars : new SidebarController(SidebarModel$Companion_getInstance().invoke_2rdptt$(htmlElement), new SidebarViewWrapper(htmlElement));
+  };
+  Object.defineProperty(SidebarController$Companion.prototype, 'allSidebars', {
+    get: function () {
+      return this.allSidebars_qajbuu$_0.value;
+    }
+  });
+  function SidebarController$Companion$allSidebars$lambda() {
+    return new SidebarController(new SidebarModel(), null);
+  }
+  SidebarController$Companion.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'Companion',
+    interfaces: []
+  };
+  var SidebarController$Companion_instance = null;
+  function SidebarController$Companion_getInstance() {
+    if (SidebarController$Companion_instance === null) {
+      new SidebarController$Companion();
+    }
+    return SidebarController$Companion_instance;
+  }
+  function SidebarController$model$lambda(this$SidebarController) {
+    return function (f, f_0, newModel) {
+      this$SidebarController.didSetModel_0(newModel);
       return Unit;
     };
   }
-  function SidebarController$view$lambda(this$SidebarController, closure$model, closure$view) {
+  function SidebarController$view$lambda(this$SidebarController) {
     return function (f, f_0, newView) {
-      this$SidebarController.suppressChangeReactions_0 = true;
-      loadFromView_0(closure$model, closure$view);
-      this$SidebarController.suppressChangeReactions_0 = false;
+      this$SidebarController.didSetView_0(newView);
       return Unit;
     };
   }
@@ -230,7 +422,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     interfaces: [SidebarModelDelegate]
   };
   function loadFromView_0($receiver, view) {
-    $receiver.isShown = hasClass_0(view, sidebarHiddenClass);
+    $receiver.isShown = hasClass_0(view, SidebarModel$Companion_getInstance().sidebarHiddenClass);
   }
   Delegates$observable$ObjectLiteral_3.prototype = Object.create(ObservableProperty.prototype);
   Delegates$observable$ObjectLiteral_3.prototype.constructor = Delegates$observable$ObjectLiteral_3;
@@ -242,8 +434,11 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     this.closure$onChange(property, oldValue, newValue);
   };
   Delegates$observable$ObjectLiteral_3.$metadata$ = {kind: Kind_CLASS, interfaces: [ObservableProperty]};
-  function SidebarModel() {
-    this.isShown_uoqu9g$_0 = new Delegates$observable$ObjectLiteral_3(SidebarModel$isShown$lambda(this), false);
+  function SidebarModel(isShown) {
+    SidebarModel$Companion_getInstance();
+    if (isShown === void 0)
+      isShown = false;
+    this.isShown_uoqu9g$_0 = new Delegates$observable$ObjectLiteral_3(SidebarModel$isShown$lambda(this), isShown);
     this.delegate = null;
   }
   var SidebarModel$isShown_metadata = new PropertyMetadata('isShown');
@@ -255,8 +450,28 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
       this.isShown_uoqu9g$_0.setValue_9rddgb$(this, SidebarModel$isShown_metadata, isShown);
     }
   });
+  function SidebarModel$Companion() {
+    SidebarModel$Companion_instance = this;
+    this.className = 'sidebar';
+    this.sidebarHiddenClass = 'sidebar-hidden';
+  }
+  SidebarModel$Companion.prototype.invoke_2rdptt$ = function (htmlElement) {
+    return new SidebarModel(hasClass(htmlElement, this.sidebarHiddenClass));
+  };
+  SidebarModel$Companion.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'Companion',
+    interfaces: []
+  };
+  var SidebarModel$Companion_instance = null;
+  function SidebarModel$Companion_getInstance() {
+    if (SidebarModel$Companion_instance === null) {
+      new SidebarModel$Companion();
+    }
+    return SidebarModel$Companion_instance;
+  }
   function SidebarModel$isShown$lambda(this$SidebarModel) {
-    return function (property, oldValue, newValue) {
+    return function (f, oldValue, newValue) {
       var tmp$;
       (tmp$ = this$SidebarModel.delegate) != null ? (tmp$.didShowOrHide_dqye30$(oldValue, newValue), Unit) : null;
       return Unit;
@@ -287,6 +502,8 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     simpleName: 'SidebarViewWrapper',
     interfaces: [WrappedHtmlView]
   };
+  var package$jQueryInterface = _.jQueryInterface || (_.jQueryInterface = {});
+  package$jQueryInterface.get_parentElement_s15u7w$ = get_parentElement;
   var package$org = _.org || (_.org = {});
   var package$bh = package$org.bh || (package$org.bh = {});
   var package$scripts = package$bh.scripts || (package$bh.scripts = {});
@@ -298,25 +515,34 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   package$components.addClass_pd9xjz$ = addClass_0;
   package$components.removeClass_pd9xjz$ = removeClass_0;
   package$components.hasClass_bo7xh4$ = hasClass_0;
+  Object.defineProperty(ButtonController, 'Companion', {
+    get: ButtonController$Companion_getInstance
+  });
   var package$button = package$components.button || (package$components.button = {});
   package$button.ButtonController = ButtonController;
   package$button.loadFromView_k5cyxg$ = loadFromView;
+  Object.defineProperty(ButtonModel, 'Companion', {
+    get: ButtonModel$Companion_getInstance
+  });
   package$button.ButtonModel = ButtonModel;
   package$button.ButtonModelDelegate = ButtonModelDelegate;
   package$button.ButtonViewWrapper = ButtonViewWrapper;
+  Object.defineProperty(SidebarButtonController, 'Companion', {
+    get: SidebarButtonController$Companion_getInstance
+  });
   var package$sidebar = package$components.sidebar || (package$components.sidebar = {});
   package$sidebar.SidebarButtonController = SidebarButtonController;
-  Object.defineProperty(package$sidebar, 'sidebarHiddenClass', {
-    get: function () {
-      return sidebarHiddenClass;
-    }
+  Object.defineProperty(SidebarController, 'Companion', {
+    get: SidebarController$Companion_getInstance
   });
   package$sidebar.SidebarController = SidebarController;
   package$sidebar.loadFromView_w1ovkk$ = loadFromView_0;
+  Object.defineProperty(SidebarModel, 'Companion', {
+    get: SidebarModel$Companion_getInstance
+  });
   package$sidebar.SidebarModel = SidebarModel;
   package$sidebar.SidebarModelDelegate = SidebarModelDelegate;
   package$sidebar.SidebarViewWrapper = SidebarViewWrapper;
-  sidebarHiddenClass = 'sidebar-hidden';
   main([]);
   Kotlin.defineModule('BHStudios General Scripts', _);
   return _;

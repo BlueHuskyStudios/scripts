@@ -1,9 +1,13 @@
 package org.bh.scripts.general.components.button
 
-import org.bh.scripts.general.components.*
-import org.bh.scripts.general.components.sidebar.*
+import jQueryInterface.*
+import org.w3c.dom.*
 import org.w3c.dom.events.Event
 import kotlin.properties.Delegates
+
+
+
+typealias PressListener = (Event) -> Unit
 
 
 
@@ -12,24 +16,58 @@ import kotlin.properties.Delegates
  * @since 2018-04-19
  */
 class ButtonController(
-        model: ButtonModel,
-        view: ButtonViewWrapper
+        initalModel: ButtonModel,
+        initialView: ButtonViewWrapper
 ): ButtonModelDelegate {
 
     private var suppressChangeReactions = false
 
-    var model: ButtonModel by Delegates.observable(model) { _, _, newDelegate ->
-        model.delegate = this
+    private val pressListeners = mutableSetOf<PressListener>()
+
+    var model: ButtonModel by Delegates.observable(initalModel) { _, _, newModel ->
+        didSetModel(newModel)
     }
 
-    var view: ButtonViewWrapper by Delegates.observable(view) { _, _, newView ->
+
+    var view: ButtonViewWrapper by Delegates.observable(initialView) { _, _, newView ->
+        didSetView(newView)
+    }
+
+
+    init {
+        didSetModel(initalModel)
+        didSetView(initialView)
+    }
+
+
+    private fun didSetModel(newModel: ButtonModel) {
+        newModel.delegate = this
+    }
+
+
+    private fun didSetView(newView: ButtonViewWrapper) {
         suppressChangeReactions = true
-        model.loadFromView(view)
+        this.model.loadFromView(newView)
+//        jq(newView.htmlElement).click { model.handleClick(it) }
         suppressChangeReactions = false
     }
 
+
     override fun didPress(event: Event) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        pressListeners.forEach {
+            it(event)
+        }
+    }
+
+
+    fun addPressListener(newPressListener: PressListener) {
+        pressListeners.add(newPressListener)
+    }
+
+
+    companion object {
+        operator fun invoke(htmlElement: Element) =
+                ButtonController(ButtonModel(htmlElement), ButtonViewWrapper(htmlElement))
     }
 }
 

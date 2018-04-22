@@ -1,5 +1,6 @@
 package org.bh.scripts.general.components.button
 
+import org.w3c.dom.*
 import org.w3c.dom.events.Event
 
 
@@ -13,6 +14,11 @@ class ButtonModel {
 
     fun handleClick(event: Event) {
         delegate?.didPress(event)
+    }
+
+
+    companion object {
+        operator fun invoke(@Suppress("UNUSED_PARAMETER") htmlElement: Element) = ButtonModel()
     }
 }
 
