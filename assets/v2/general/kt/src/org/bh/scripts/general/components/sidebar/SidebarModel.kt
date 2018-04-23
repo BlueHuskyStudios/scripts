@@ -1,7 +1,7 @@
 package org.bh.scripts.general.components.sidebar
 
+import org.bh.scripts.general.utilities.*
 import org.w3c.dom.*
-import kotlin.dom.*
 import kotlin.properties.Delegates
 
 
@@ -10,8 +10,8 @@ import kotlin.properties.Delegates
  * @author Ben Leggiero
  * @since 2018-04-19
  */
-class SidebarModel(isShown: Boolean = false) {
-    var isShown by Delegates.observable(isShown, onChange = { _, oldValue, newValue ->
+class SidebarModel private constructor(initIsShown: Boolean = false) {
+    var isShown by Delegates.observable(initIsShown, onChange = { _, oldValue, newValue ->
         delegate?.didShowOrHide(oldIsShown = oldValue, newIsShown = newValue)
     })
 
@@ -20,10 +20,18 @@ class SidebarModel(isShown: Boolean = false) {
 
     companion object {
         const val className = "sidebar"
-        const val sidebarShownClass = "sidebar-shown"
+        const val sidebarShownClassName = "sidebar-shown"
+
+        private val existingModels = mutableMapOf<String, SidebarModel>()
 
 
-        operator fun invoke(htmlElement: Element) = SidebarModel(isShown = htmlElement.hasClass(sidebarShownClass))
+        operator fun invoke(htmlElement: Element) =
+                invoke(id = htmlElement.id,
+                       isShown = SidebarViewWrapper.defaultElementResponsibleForHidingAndShowingTheSidebar.hasClass(sidebarShownClassName))
+
+        operator fun invoke(id: String = "", isShown: Boolean = false): SidebarModel {
+            return existingModels[id, { SidebarModel(initIsShown = isShown) } ]
+        }
     }
 }
 

@@ -1,8 +1,6 @@
 package org.bh.scripts.general.components.sidebar
 
-import jQueryInterface.*
-import org.bh.scripts.general.components.*
-import org.bh.scripts.general.components.sidebar.SidebarModel.Companion.sidebarShownClass
+import org.bh.scripts.general.components.sidebar.SidebarModel.Companion.sidebarShownClassName
 import org.bh.scripts.general.components.sidebar.SidebarViewWrapper.Companion.defaultElementResponsibleForHidingAndShowingTheSidebar
 import org.w3c.dom.*
 import kotlin.properties.Delegates
@@ -67,10 +65,10 @@ class SidebarController(
 
         if (null == view) {
             if (newIsShown) {
-                defaultElementResponsibleForHidingAndShowingTheSidebar.addClass(sidebarShownClass)
+                defaultElementResponsibleForHidingAndShowingTheSidebar.addClass(sidebarShownClassName)
             }
             else {
-                defaultElementResponsibleForHidingAndShowingTheSidebar.removeClass(sidebarShownClass)
+                defaultElementResponsibleForHidingAndShowingTheSidebar.removeClass(sidebarShownClassName)
             }
         }
         else {

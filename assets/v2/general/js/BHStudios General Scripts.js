@@ -359,10 +359,10 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     var view = this.view;
     if (view == null) {
       if (newIsShown) {
-        SidebarViewWrapper$Companion_getInstance().defaultElementResponsibleForHidingAndShowingTheSidebar.addClass(SidebarModel$Companion_getInstance().sidebarShownClass);
+        SidebarViewWrapper$Companion_getInstance().defaultElementResponsibleForHidingAndShowingTheSidebar.addClass(SidebarModel$Companion_getInstance().sidebarShownClassName);
       }
        else {
-        SidebarViewWrapper$Companion_getInstance().defaultElementResponsibleForHidingAndShowingTheSidebar.removeClass(SidebarModel$Companion_getInstance().sidebarShownClass);
+        SidebarViewWrapper$Companion_getInstance().defaultElementResponsibleForHidingAndShowingTheSidebar.removeClass(SidebarModel$Companion_getInstance().sidebarShownClassName);
       }
     }
      else {
@@ -385,7 +385,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     }
   });
   function SidebarController$Companion$allSidebars$lambda() {
-    return new SidebarController(new SidebarModel(), null);
+    return new SidebarController(SidebarModel$Companion_getInstance().invoke_ivxn3r$(), null);
   }
   SidebarController$Companion.$metadata$ = {
     kind: Kind_OBJECT,
@@ -429,11 +429,11 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     this.closure$onChange(property, oldValue, newValue);
   };
   Delegates$observable$ObjectLiteral_3.$metadata$ = {kind: Kind_CLASS, interfaces: [ObservableProperty]};
-  function SidebarModel(isShown) {
+  function SidebarModel(initIsShown) {
     SidebarModel$Companion_getInstance();
-    if (isShown === void 0)
-      isShown = false;
-    this.isShown_uoqu9g$_0 = new Delegates$observable$ObjectLiteral_3(SidebarModel$isShown$lambda(this), isShown);
+    if (initIsShown === void 0)
+      initIsShown = false;
+    this.isShown_uoqu9g$_0 = new Delegates$observable$ObjectLiteral_3(SidebarModel$isShown$lambda(this), initIsShown);
     this.delegate = null;
   }
   var SidebarModel$isShown_metadata = new PropertyMetadata('isShown');
@@ -445,13 +445,27 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
       this.isShown_uoqu9g$_0.setValue_9rddgb$(this, SidebarModel$isShown_metadata, isShown);
     }
   });
+  var LinkedHashMap_init = Kotlin.kotlin.collections.LinkedHashMap_init_q3lmfv$;
   function SidebarModel$Companion() {
     SidebarModel$Companion_instance = this;
     this.className = 'sidebar';
-    this.sidebarShownClass = 'sidebar-shown';
+    this.sidebarShownClassName = 'sidebar-shown';
+    this.existingModels_0 = LinkedHashMap_init();
   }
   SidebarModel$Companion.prototype.invoke_2rdptt$ = function (htmlElement) {
-    return new SidebarModel(hasClass(htmlElement, this.sidebarShownClass));
+    return this.invoke_ivxn3r$(htmlElement.id, SidebarViewWrapper$Companion_getInstance().defaultElementResponsibleForHidingAndShowingTheSidebar.hasClass(this.sidebarShownClassName));
+  };
+  function SidebarModel$Companion$invoke$lambda(closure$isShown) {
+    return function () {
+      return new SidebarModel(closure$isShown);
+    };
+  }
+  SidebarModel$Companion.prototype.invoke_ivxn3r$ = function (id, isShown) {
+    if (id === void 0)
+      id = '';
+    if (isShown === void 0)
+      isShown = false;
+    return get_0(this.existingModels_0, id, SidebarModel$Companion$invoke$lambda(isShown));
   };
   SidebarModel$Companion.$metadata$ = {
     kind: Kind_OBJECT,
@@ -495,13 +509,13 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   });
   Object.defineProperty(SidebarViewWrapper.prototype, 'isShown', {
     get: function () {
-      return this.elementResponsibleForHidingAndShowingTheSidebar.hasClass(SidebarModel$Companion_getInstance().sidebarShownClass);
+      return this.elementResponsibleForHidingAndShowingTheSidebar.hasClass(SidebarModel$Companion_getInstance().sidebarShownClassName);
     },
     set: function (newValue) {
       if (newValue)
-        this.elementResponsibleForHidingAndShowingTheSidebar.addClass(SidebarModel$Companion_getInstance().sidebarShownClass);
+        this.elementResponsibleForHidingAndShowingTheSidebar.addClass(SidebarModel$Companion_getInstance().sidebarShownClassName);
       else
-        this.elementResponsibleForHidingAndShowingTheSidebar.removeClass(SidebarModel$Companion_getInstance().sidebarShownClass);
+        this.elementResponsibleForHidingAndShowingTheSidebar.removeClass(SidebarModel$Companion_getInstance().sidebarShownClassName);
     }
   });
   Object.defineProperty(SidebarViewWrapper.prototype, 'elementResponsibleForHidingAndShowingTheSidebar', {
@@ -530,6 +544,19 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     simpleName: 'SidebarViewWrapper',
     interfaces: [WrappedHtmlView]
   };
+  function get_0($receiver, key, backupValue) {
+    var tmp$;
+    var value = $receiver.get_11rb$(key);
+    if (value == null) {
+      var answer = backupValue();
+      $receiver.put_xwzc9p$(key, answer);
+      tmp$ = answer;
+    }
+     else {
+      tmp$ = value;
+    }
+    return tmp$;
+  }
   var package$jQueryInterface = _.jQueryInterface || (_.jQueryInterface = {});
   package$jQueryInterface.get_parentElement_s15u7w$ = get_parentElement;
   var package$org = _.org || (_.org = {});
@@ -574,6 +601,8 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     get: SidebarViewWrapper$Companion_getInstance
   });
   package$sidebar.SidebarViewWrapper = SidebarViewWrapper;
+  var package$utilities = package$general.utilities || (package$general.utilities = {});
+  package$utilities.get_9wl75a$ = get_0;
   main([]);
   Kotlin.defineModule('BHStudios General Scripts', _);
   return _;

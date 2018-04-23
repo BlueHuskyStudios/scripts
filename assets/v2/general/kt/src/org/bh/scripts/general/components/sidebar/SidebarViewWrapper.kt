@@ -16,12 +16,12 @@ class SidebarViewWrapper(
         override val htmlElement: Element
 ) : WrappedHtmlView<Element> {
     var isShown: Boolean
-        get() = elementResponsibleForHidingAndShowingTheSidebar.hasClass(SidebarModel.sidebarShownClass)
+        get() = elementResponsibleForHidingAndShowingTheSidebar.hasClass(SidebarModel.sidebarShownClassName)
         set(newValue) {
             if (newValue)
-                elementResponsibleForHidingAndShowingTheSidebar.addClass(SidebarModel.sidebarShownClass)
+                elementResponsibleForHidingAndShowingTheSidebar.addClass(SidebarModel.sidebarShownClassName)
             else
-                elementResponsibleForHidingAndShowingTheSidebar.removeClass(SidebarModel.sidebarShownClass)
+                elementResponsibleForHidingAndShowingTheSidebar.removeClass(SidebarModel.sidebarShownClassName)
         }
 
     val elementResponsibleForHidingAndShowingTheSidebar get() = defaultElementResponsibleForHidingAndShowingTheSidebar
