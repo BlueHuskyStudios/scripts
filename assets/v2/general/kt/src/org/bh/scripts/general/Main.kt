@@ -31,7 +31,7 @@ private object Setup {
 
 
     private fun connectAllSidebarsToSidebarButtons() {
-        val firstSidebarElement: Element? by lazy { jq(".${SidebarModel.className}")[0] }
+        val firstSidebarElement: Element? by lazy { jq(".${SidebarViewWrapper.className}")[0] }
 
         val controllers = jq(".show-sidebar-button").map { _, sidebarButtonElement ->
             val specifiedSidebarId = sidebarButtonElement.getAttributeNode("for")?.value

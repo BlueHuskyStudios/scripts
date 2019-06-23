@@ -19,15 +19,15 @@ class SidebarModel private constructor(initIsShown: Boolean = false) {
 
 
     companion object {
-        const val className = "sidebar"
-        const val sidebarShownClassName = "sidebar-shown"
 
         private val existingModels = mutableMapOf<String, SidebarModel>()
 
+        operator fun invoke(viewWrapper: SidebarViewWrapper) =
+                invoke(id = viewWrapper.htmlElement.id,
+                        isShown = viewWrapper.isShown)
 
         operator fun invoke(htmlElement: Element) =
-                invoke(id = htmlElement.id,
-                       isShown = SidebarViewWrapper.defaultElementResponsibleForHidingAndShowingTheSidebar.hasClass(sidebarShownClassName))
+                invoke(viewWrapper = SidebarViewWrapper(htmlElement = htmlElement))
 
         operator fun invoke(id: String = "", isShown: Boolean = false): SidebarModel {
             return existingModels[id, { SidebarModel(initIsShown = isShown) } ]

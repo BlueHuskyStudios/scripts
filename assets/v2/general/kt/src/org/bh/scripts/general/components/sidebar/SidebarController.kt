@@ -1,7 +1,7 @@
 package org.bh.scripts.general.components.sidebar
 
-import org.bh.scripts.general.components.sidebar.SidebarModel.Companion.sidebarShownClassName
-import org.bh.scripts.general.components.sidebar.SidebarViewWrapper.Companion.defaultElementResponsibleForHidingAndShowingTheSidebar
+import org.bh.scripts.general.components.sidebar.SidebarViewWrapper.Companion.sidebarShownClassName
+import org.bh.scripts.general.components.sidebar.SidebarViewWrapper.Companion.defaultParentElement
 import org.w3c.dom.*
 import kotlin.properties.Delegates
 
@@ -53,27 +53,9 @@ class SidebarController(
         }
         else {
             this.model.loadFromView(newView)
+            newView.scrimHtmlElement.click { toggleHidden() }
         }
         suppressChangeReactions = false
-    }
-
-
-    override fun didShowOrHide(oldIsShown: Boolean, newIsShown: Boolean) {
-        if (suppressChangeReactions) { return }
-
-        val view = this.view
-
-        if (null == view) {
-            if (newIsShown) {
-                defaultElementResponsibleForHidingAndShowingTheSidebar.addClass(sidebarShownClassName)
-            }
-            else {
-                defaultElementResponsibleForHidingAndShowingTheSidebar.removeClass(sidebarShownClassName)
-            }
-        }
-        else {
-            view.isShown = newIsShown
-        }
     }
 
 
@@ -94,6 +76,28 @@ class SidebarController(
          * Controls all sidebars in the same way
          */
         val allSidebars: SidebarController by lazy { SidebarController(SidebarModel(), null) }
+    }
+
+
+
+    // MARK: - SidebarModelDelegate
+
+    override fun didShowOrHide(oldIsShown: Boolean, newIsShown: Boolean) {
+        if (suppressChangeReactions) { return }
+
+        val view = this.view
+
+        if (null == view) {
+            if (newIsShown) {
+                defaultParentElement.addClass(sidebarShownClassName)
+            }
+            else {
+                defaultParentElement.removeClass(sidebarShownClassName)
+            }
+        }
+        else {
+            view.isShown = newIsShown
+        }
     }
 }
 
