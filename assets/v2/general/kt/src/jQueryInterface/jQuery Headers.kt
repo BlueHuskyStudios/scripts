@@ -69,9 +69,35 @@ external class JQuery {
     fun load(handler: EventHandler): JQuery
     fun change(handler: EventHandler): JQuery
 
+
     fun append(str: String): JQuery
-    fun before(content: JQuery): JQuery
+    fun append(str: Element): JQuery
+    fun append(str: JQuery): JQuery
+    fun append(str: Array<String>): JQuery
+    fun append(str: Array<Element>): JQuery
+    fun append(str: Array<JQuery>): JQuery
+
+    fun prepend(str: String): JQuery
+    fun prepend(str: Element): JQuery
+    fun prepend(str: JQuery): JQuery
+    fun prepend(str: Array<String>): JQuery
+    fun prepend(str: Array<Element>): JQuery
+    fun prepend(str: Array<JQuery>): JQuery
+
     fun before(content: String): JQuery
+    fun before(content: Element): JQuery
+    fun before(content: JQuery): JQuery
+    fun before(content: Array<String>): JQuery
+    fun before(content: Array<Element>): JQuery
+    fun before(content: Array<JQuery>): JQuery
+
+    fun after(content: String): JQuery
+    fun after(content: Element): JQuery
+    fun after(content: JQuery): JQuery
+    fun after(content: Array<String>): JQuery
+    fun after(content: Array<Element>): JQuery
+    fun after(content: Array<JQuery>): JQuery
+
 
     /**
      * Remove the set of matched elements from the DOM.
@@ -105,6 +131,10 @@ external class JQuery {
 
     fun each(iterator: JQueryIterator)
 }
+
+
+
+typealias JQueryProviderFunction<T> = Element.(index: Int, html: String) -> T
 
 
 
