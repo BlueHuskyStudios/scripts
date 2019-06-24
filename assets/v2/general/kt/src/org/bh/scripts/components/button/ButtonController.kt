@@ -1,6 +1,5 @@
-package org.bh.scripts.general.components.button
+package org.bh.scripts.components.button
 
-import jQueryInterface.*
 import org.w3c.dom.*
 import org.w3c.dom.events.Event
 import kotlin.properties.Delegates
@@ -16,18 +15,20 @@ typealias PressListener = (Event) -> Unit
  * @since 2018-04-19
  */
 class ButtonController(
-        initalModel: ButtonModel,
+        initialModel: ButtonModel,
         initialView: ButtonViewWrapper
 ): ButtonModelDelegate {
+
+    constructor(htmlElement: Element): this(ButtonModel(htmlElement), ButtonViewWrapper(htmlElement))
+
 
     private var suppressChangeReactions = false
 
     private val pressListeners = mutableSetOf<PressListener>()
 
-    var model: ButtonModel by Delegates.observable(initalModel) { _, _, newModel ->
+    var model: ButtonModel by Delegates.observable(initialModel) { _, _, newModel ->
         didSetModel(newModel)
     }
-
 
     var view: ButtonViewWrapper by Delegates.observable(initialView) { _, _, newView ->
         didSetView(newView)
@@ -35,7 +36,7 @@ class ButtonController(
 
 
     init {
-        didSetModel(initalModel)
+        didSetModel(initialModel)
         didSetView(initialView)
     }
 
@@ -62,12 +63,6 @@ class ButtonController(
 
     fun addPressListener(newPressListener: PressListener) {
         pressListeners.add(newPressListener)
-    }
-
-
-    companion object {
-        operator fun invoke(htmlElement: Element) =
-                ButtonController(ButtonModel(htmlElement), ButtonViewWrapper(htmlElement))
     }
 }
 

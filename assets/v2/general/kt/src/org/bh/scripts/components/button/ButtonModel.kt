@@ -1,4 +1,4 @@
-package org.bh.scripts.general.components.button
+package org.bh.scripts.components.button
 
 import org.w3c.dom.*
 import org.w3c.dom.events.Event

@@ -1,4 +1,4 @@
-package org.bh.scripts.general.components
+package org.bh.scripts.components
 
 import org.w3c.dom.Element
 import kotlin.dom.*

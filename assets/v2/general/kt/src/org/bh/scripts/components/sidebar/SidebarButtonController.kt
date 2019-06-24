@@ -1,6 +1,6 @@
-package org.bh.scripts.general.components.sidebar
+package org.bh.scripts.components.sidebar
 
-import org.bh.scripts.general.components.button.*
+import org.bh.scripts.components.button.*
 import org.w3c.dom.events.*
 
 
