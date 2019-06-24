@@ -1,6 +1,6 @@
-package org.bh.scripts.general.components.button
+package org.bh.scripts.components.button
 
-import org.bh.scripts.general.components.WrappedHtmlView
+import org.bh.scripts.components.WrappedHtmlView
 import org.w3c.dom.Element
 
 

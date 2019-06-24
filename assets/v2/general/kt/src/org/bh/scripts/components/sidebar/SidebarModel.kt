@@ -1,4 +1,4 @@
-package org.bh.scripts.general.components.sidebar
+package org.bh.scripts.components.sidebar
 
 import org.bh.scripts.general.utilities.*
 import org.w3c.dom.*
@@ -24,7 +24,7 @@ class SidebarModel private constructor(initIsShown: Boolean = false) {
 
         operator fun invoke(viewWrapper: SidebarViewWrapper) =
                 invoke(id = viewWrapper.htmlElement.id,
-                        isShown = viewWrapper.isShown)
+                       isShown = viewWrapper.isShown)
 
         operator fun invoke(htmlElement: Element) =
                 invoke(viewWrapper = SidebarViewWrapper(htmlElement = htmlElement))

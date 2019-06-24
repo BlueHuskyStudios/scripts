@@ -1,9 +1,9 @@
-package org.bh.scripts.general.components.sidebar
+package org.bh.scripts.components.sidebar
 
 
 
 import jQueryInterface.*
-import org.bh.scripts.general.components.*
+import org.bh.scripts.components.*
 import org.w3c.dom.Element
 
 
@@ -14,32 +14,32 @@ import org.w3c.dom.Element
  */
 class SidebarViewWrapper(
         override val htmlElement: Element,
-        private val parentElement: JQuery = defaultParentElement
+        private val containerElement: JQuery = defaultContainerElement
 ) : WrappedHtmlView<Element> {
 
-    private var scrimHtmlElementGetter = scrimElementGetter(parentElement)
+    private var scrimHtmlElementGetter = scrimElementGetter(containerElement)
 
     val scrimHtmlElement get() = scrimHtmlElementGetter()
 
     var isShown: Boolean
-        get() = parentElement.hasClass(sidebarShownClassName)
+        get() = containerElement.hasClass(sidebarShownClassName)
         set(newValue) = if (newValue) show() else hide()
 
 
     init {
         if (0 == scrimHtmlElementGetter().length) {
-            parentElement.prepend(generateNewScrimHtmlString())
+            containerElement.prepend(generateNewScrimHtmlString())
         }
     }
 
 
     private fun hide() {
-        parentElement.removeClass(sidebarShownClassName)
+        containerElement.removeClass(sidebarShownClassName)
     }
 
 
     private fun show() {
-        parentElement.addClass(sidebarShownClassName)
+        containerElement.addClass(sidebarShownClassName)
     }
 
 
@@ -48,9 +48,9 @@ class SidebarViewWrapper(
         const val sidebarShownClassName = "sidebar-shown"
         const val scrimElementClassName = "sidebar-scrim"
 
-        val defaultParentElement = jq(":root")
-        fun scrimElementGetter(parentElement: JQuery): () -> JQuery = {
-            /*return*/ jq(selector = ".$scrimElementClassName", context = parentElement)
+        val defaultContainerElement = jq(":root")
+        fun scrimElementGetter(containerElement: JQuery): () -> JQuery = {
+            /*return*/ jq(selector = ".$scrimElementClassName", context = containerElement)
         }
 
 

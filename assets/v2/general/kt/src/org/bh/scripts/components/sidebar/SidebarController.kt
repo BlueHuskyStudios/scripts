@@ -1,7 +1,7 @@
-package org.bh.scripts.general.components.sidebar
+package org.bh.scripts.components.sidebar
 
-import org.bh.scripts.general.components.sidebar.SidebarViewWrapper.Companion.sidebarShownClassName
-import org.bh.scripts.general.components.sidebar.SidebarViewWrapper.Companion.defaultParentElement
+import org.bh.scripts.components.sidebar.SidebarViewWrapper.Companion.sidebarShownClassName
+import org.bh.scripts.components.sidebar.SidebarViewWrapper.Companion.defaultContainerElement
 import org.w3c.dom.*
 import kotlin.properties.Delegates
 
@@ -66,16 +66,18 @@ class SidebarController(
 
     companion object {
         operator fun invoke(htmlElement: Element?) =
-                if (null == htmlElement)
-                    SidebarController.allSidebars
-                else
+                if (null == htmlElement) {
+                    anySidebar
+                }
+                else {
                     SidebarController(SidebarModel(htmlElement), SidebarViewWrapper(htmlElement))
+                }
 
 
         /**
          * Controls all sidebars in the same way
          */
-        val allSidebars: SidebarController by lazy { SidebarController(SidebarModel(), null) }
+        val anySidebar: SidebarController by lazy { SidebarController(SidebarModel(), null) }
     }
 
 
@@ -89,10 +91,10 @@ class SidebarController(
 
         if (null == view) {
             if (newIsShown) {
-                defaultParentElement.addClass(sidebarShownClassName)
+                defaultContainerElement.addClass(sidebarShownClassName)
             }
             else {
-                defaultParentElement.removeClass(sidebarShownClassName)
+                defaultContainerElement.removeClass(sidebarShownClassName)
             }
         }
         else {
