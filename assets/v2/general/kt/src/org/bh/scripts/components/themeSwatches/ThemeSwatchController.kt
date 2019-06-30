@@ -3,6 +3,7 @@
 package org.bh.scripts.components.themeSwatches
 
 import jQueryInterface.jq
+import org.bh.scripts.general.serialization.*
 import org.bh.scripts.theming.*
 import org.w3c.dom.Element
 
@@ -22,34 +23,11 @@ class ThemeSwatchController(
     }
 
     private fun setTheme() {
-        when (this.model) {
-            is ThemeSwatchModel.color -> jq(themeSheetLinkElementSelector).attr("href", themeUrl)
-            is ThemeSwatchModel.brightness -> jq(":root")
-                    .removeClass(ThemeBrightnessTier.allClassNames.joinToString(" "))
-                    .addClass(model.brightnessTier.className)
-        }
+        ThemeController.setTheme(ThemeModel(model))
     }
 
 
-    private val themeUrl: String? get() { return stylesheetUrl(model.colorSheetName ?: return null) }
-
-
-    companion object {
-
-        const val themeSheetLinkElementSelector = "link#theme-stylesheet"
-        const val frameworkSheetLinkElementSelector = "link#framework-stylesheet"
-
-        private const val stylesheetsProtocol = "https"
-        private const val stylesheetsDomain = "stylesheets.bhstudios.org"
-        private const val stylesheetsDirectoryPath = "assets/v2/neon/"
-        private const val stylesheetNamePrefix = "neon-"
-        private const val stylesheetNameSuffix = ".css"
-        private const val stylesheetBaseUrl = "$stylesheetsProtocol://$stylesheetsDomain/$stylesheetsDirectoryPath"
-
-
-        private fun stylesheetFileName(color: String) = "$stylesheetNamePrefix$color$stylesheetNameSuffix"
-        private fun stylesheetUrl(color: String) = "$stylesheetBaseUrl/${stylesheetFileName(color)}"
-    }
+    companion object
 }
 
 

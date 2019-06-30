@@ -4,8 +4,13 @@ import jQueryInterface.*
 import org.bh.scripts.components.button.*
 import org.bh.scripts.components.sidebar.*
 import org.bh.scripts.components.themeSwatches.ThemeSwatchController
+import org.bh.scripts.components.themeSwatches.ThemeSwatchModel
 import org.bh.scripts.components.themeSwatches.ThemeSwatchViewWrapper
 import org.bh.scripts.components.themeSwatches.invoke
+import org.bh.scripts.general.serialization.LocalStorage
+import org.bh.scripts.general.serialization.invoke
+import org.bh.scripts.theming.ThemeController
+import kotlin.browser.document
 
 /**
  * @author Ben Leggiero
@@ -15,8 +20,9 @@ import org.bh.scripts.components.themeSwatches.invoke
 
 
 fun main(args: Array<String>) {
-    jq {
+    jq(document).ready {
         Setup.performCommonPageConnections()
+        Setup.reloadStates()
     }
 }
 
@@ -64,5 +70,15 @@ private object Setup {
                         }
                         .filterNotNull()
         )
+    }
+
+
+    fun reloadStates() {
+        reloadTheme()
+    }
+
+
+    private fun reloadTheme() {
+        ThemeController.reloadTheme()
     }
 }

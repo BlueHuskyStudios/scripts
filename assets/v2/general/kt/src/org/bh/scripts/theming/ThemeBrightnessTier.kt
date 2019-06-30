@@ -1,4 +1,8 @@
+@file:Suppress("unused")
+
 package org.bh.scripts.theming
+
+import jQueryInterface.jq
 
 /**
  * A certain tier of brightness for a theme. Also known as "dark mode" or "light mode".
@@ -19,7 +23,9 @@ enum class ThemeBrightnessTier {
 
 
 
-    companion object
+    companion object {
+        inline val default get() = light
+    }
 }
 
 
@@ -27,4 +33,13 @@ enum class ThemeBrightnessTier {
 val ThemeBrightnessTier.className get() = "brightness-$name"
 
 
-val ThemeBrightnessTier.Companion.allClassNames get() = ThemeBrightnessTier.values().map { it.className }
+inline val ThemeBrightnessTier.Companion.serialKey get() = "brightness"
+
+inline val ThemeBrightnessTier.serialValue get() = name
+
+fun ThemeBrightnessTier.Companion.initFromPage() = ThemeBrightnessTier.values()
+        .firstOrNull { jq(":root").hasClass(it.className) }
+
+operator fun ThemeBrightnessTier.Companion.invoke(serialValue: String) =
+        ThemeBrightnessTier.values()
+                .firstOrNull { it.serialValue == serialValue }
