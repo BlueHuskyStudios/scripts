@@ -162,10 +162,13 @@ public external fun jq(selector: String, context: JQuery): JQuery
 public external fun jq(callback: () -> Unit): JQuery
 
 @JsName("$")
-public external fun jq(obj: JQuery): JQuery
+public external fun jq(jqueryObject: JQuery): JQuery
 
 @JsName("$")
-public external fun jq(el: Element): JQuery
+public external fun jq(element: Element): JQuery
+
+@JsName("$")
+public external fun jq(document: Document): JQuery
 
 @JsName("$")
 public external fun jq(): JQuery

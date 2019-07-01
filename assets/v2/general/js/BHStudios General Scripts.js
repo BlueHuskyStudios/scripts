@@ -3,6 +3,7 @@ if (typeof kotlin === 'undefined') {
 }
 this['BHStudios General Scripts'] = function (_, Kotlin) {
   'use strict';
+  var $$importsForInline$$ = _.$$importsForInline$$ || (_.$$importsForInline$$ = {});
   var defineInlineFunction = Kotlin.defineInlineFunction;
   var Kind_INTERFACE = Kotlin.Kind.INTERFACE;
   var addClass = Kotlin.kotlin.dom.addClass_hhb33f$;
@@ -16,18 +17,30 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   var Kind_OBJECT = Kotlin.Kind.OBJECT;
   var lazy = Kotlin.kotlin.lazy_klfg04$;
   var LinkedHashMap_init = Kotlin.kotlin.collections.LinkedHashMap_init_q3lmfv$;
-  var joinToString = Kotlin.kotlin.collections.joinToString_fmv235$;
+  var equals = Kotlin.equals;
   var toString = Kotlin.toString;
   var addAll = Kotlin.kotlin.collections.addAll_ye1y7v$;
   var filterNotNull = Kotlin.kotlin.collections.filterNotNull_emfgvx$;
   var ArrayList_init = Kotlin.kotlin.collections.ArrayList_init_287e2$;
+  var MutableIterator = Kotlin.kotlin.collections.MutableIterator;
+  var AbstractMutableCollection = Kotlin.kotlin.collections.AbstractMutableCollection;
+  var IllegalStateException_init = Kotlin.kotlin.IllegalStateException_init_pdl1vj$;
+  var startsWith = Kotlin.kotlin.text.startsWith_7epoxm$;
+  var Throwable = Error;
+  var wrapFunction = Kotlin.wrapFunction;
   var Enum = Kotlin.kotlin.Enum;
   var throwISE = Kotlin.throwISE;
-  var ArrayList_init_0 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$;
+  var getCallableRef = Kotlin.getCallableRef;
+  var getPropertyCallableRef = Kotlin.getPropertyCallableRef;
+  var joinToString = Kotlin.kotlin.collections.joinToString_cgipc5$;
+  var to = Kotlin.kotlin.to_ujzrz7$;
+  var json = Kotlin.kotlin.js.json_pyyo18$;
   ThemeSwatchModel$color.prototype = Object.create(ThemeSwatchModel.prototype);
   ThemeSwatchModel$color.prototype.constructor = ThemeSwatchModel$color;
   ThemeSwatchModel$brightness.prototype = Object.create(ThemeSwatchModel.prototype);
   ThemeSwatchModel$brightness.prototype.constructor = ThemeSwatchModel$brightness;
+  LocalStorage.prototype = Object.create(AbstractMutableCollection.prototype);
+  LocalStorage.prototype.constructor = LocalStorage;
   ThemeBrightnessTier.prototype = Object.create(Enum.prototype);
   ThemeBrightnessTier.prototype.constructor = ThemeBrightnessTier;
   var get_parentElement = defineInlineFunction('BHStudios General Scripts.jQueryInterface.get_parentElement_s15u7w$', function ($receiver) {
@@ -518,42 +531,11 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     $(this.viewWrapper.htmlElement).click(ThemeSwatchController_init$lambda(this));
   }
   ThemeSwatchController.prototype.setTheme_0 = function () {
-    var tmp$;
-    tmp$ = this.model;
-    if (Kotlin.isType(tmp$, ThemeSwatchModel$color))
-      $(ThemeSwatchController$Companion_getInstance().themeSheetLinkElementSelector).attr('href', this.themeUrl_0);
-    else if (Kotlin.isType(tmp$, ThemeSwatchModel$brightness))
-      $(':root').removeClass(joinToString(get_allClassNames(ThemeBrightnessTier$Companion_getInstance()), ' ')).addClass(get_className_0(this.model.brightnessTier));
-    else
-      Kotlin.noWhenBranchMatched();
+    ThemeController_getInstance().setTheme_xxas9g$(invoke_8(ThemeModel$Companion_getInstance(), this.model));
   };
-  Object.defineProperty(ThemeSwatchController.prototype, 'themeUrl_0', {
-    get: function () {
-      var tmp$;
-      tmp$ = get_colorSheetName(this.model);
-      if (tmp$ == null) {
-        return null;
-      }
-      return ThemeSwatchController$Companion_getInstance().stylesheetUrl_0(tmp$);
-    }
-  });
   function ThemeSwatchController$Companion() {
     ThemeSwatchController$Companion_instance = this;
-    this.themeSheetLinkElementSelector = 'link#theme-stylesheet';
-    this.frameworkSheetLinkElementSelector = 'link#framework-stylesheet';
-    this.stylesheetsProtocol_0 = 'https';
-    this.stylesheetsDomain_0 = 'stylesheets.bhstudios.org';
-    this.stylesheetsDirectoryPath_0 = 'assets/v2/neon/';
-    this.stylesheetNamePrefix_0 = 'neon-';
-    this.stylesheetNameSuffix_0 = '.css';
-    this.stylesheetBaseUrl_0 = 'https://stylesheets.bhstudios.org/assets/v2/neon/';
   }
-  ThemeSwatchController$Companion.prototype.stylesheetFileName_0 = function (color) {
-    return this.stylesheetNamePrefix_0 + color + this.stylesheetNameSuffix_0;
-  };
-  ThemeSwatchController$Companion.prototype.stylesheetUrl_0 = function (color) {
-    return this.stylesheetBaseUrl_0 + '/' + this.stylesheetFileName_0(color);
-  };
   ThemeSwatchController$Companion.$metadata$ = {
     kind: Kind_OBJECT,
     simpleName: 'Companion',
@@ -581,7 +563,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     var tmp$;
     var swatchElement = controlling;
     var view = new ThemeSwatchViewWrapper(swatchElement);
-    tmp$ = invoke_0(ThemeSwatchModel$Companion_getInstance(), view);
+    tmp$ = invoke_1(ThemeSwatchModel$Companion_getInstance(), view);
     if (tmp$ == null) {
       return null;
     }
@@ -592,8 +574,24 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     ThemeSwatchModel$Companion_getInstance();
   }
   function ThemeSwatchModel$color(sheetName) {
+    ThemeSwatchModel$color$Companion_getInstance();
     ThemeSwatchModel.call(this);
     this.sheetName = sheetName;
+  }
+  function ThemeSwatchModel$color$Companion() {
+    ThemeSwatchModel$color$Companion_instance = this;
+  }
+  ThemeSwatchModel$color$Companion.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'Companion',
+    interfaces: []
+  };
+  var ThemeSwatchModel$color$Companion_instance = null;
+  function ThemeSwatchModel$color$Companion_getInstance() {
+    if (ThemeSwatchModel$color$Companion_instance === null) {
+      new ThemeSwatchModel$color$Companion();
+    }
+    return ThemeSwatchModel$color$Companion_instance;
   }
   ThemeSwatchModel$color.$metadata$ = {
     kind: Kind_CLASS,
@@ -601,8 +599,24 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     interfaces: [ThemeSwatchModel]
   };
   function ThemeSwatchModel$brightness(brightnessTier) {
+    ThemeSwatchModel$brightness$Companion_getInstance();
     ThemeSwatchModel.call(this);
     this.brightnessTier = brightnessTier;
+  }
+  function ThemeSwatchModel$brightness$Companion() {
+    ThemeSwatchModel$brightness$Companion_instance = this;
+  }
+  ThemeSwatchModel$brightness$Companion.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'Companion',
+    interfaces: []
+  };
+  var ThemeSwatchModel$brightness$Companion_instance = null;
+  function ThemeSwatchModel$brightness$Companion_getInstance() {
+    if (ThemeSwatchModel$brightness$Companion_instance === null) {
+      new ThemeSwatchModel$brightness$Companion();
+    }
+    return ThemeSwatchModel$brightness$Companion_instance;
   }
   ThemeSwatchModel$brightness.$metadata$ = {
     kind: Kind_CLASS,
@@ -631,10 +645,12 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   };
   function get_serialValue($receiver) {
     if (Kotlin.isType($receiver, ThemeSwatchModel$color))
-      return 'color.' + $receiver.sheetName;
-    else if (Kotlin.isType($receiver, ThemeSwatchModel$brightness))
-      return 'brightness.' + $receiver.brightnessTier;
-    else
+      return ThemeColor$Companion_getInstance().serialKey + '.' + $receiver.sheetName;
+    else if (Kotlin.isType($receiver, ThemeSwatchModel$brightness)) {
+      ThemeBrightnessTier$Companion_getInstance();
+      return 'brightness' + '.' + $receiver.brightnessTier;
+    }
+     else
       return Kotlin.noWhenBranchMatched();
   }
   function generateModel($receiver) {
@@ -649,15 +665,14 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
       return null;
     }
     var swatchValue = tmp$_0;
-    switch (swatchType) {
-      case 'color':
-        tmp$_1 = new ThemeSwatchModel$color(swatchValue);
-        break;
-      case 'brightness':
+    if (equals(swatchType, ThemeColor$Companion_getInstance().serialKey))
+      tmp$_1 = new ThemeSwatchModel$color(swatchValue);
+    else {
+      ThemeBrightnessTier$Companion_getInstance();
+      if (equals(swatchType, 'brightness'))
         tmp$_1 = new ThemeSwatchModel$brightness(ThemeBrightnessTier$valueOf(swatchValue));
-        break;
-      default:tmp$_1 = null;
-        break;
+      else
+        tmp$_1 = null;
     }
     return tmp$_1;
   }
@@ -666,7 +681,20 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     return (tmp$_0 = Kotlin.isType(tmp$ = $receiver, ThemeSwatchModel$color) ? tmp$ : null) != null ? tmp$_0.sheetName : null;
   }
   var existingModels;
-  function invoke_0($receiver, viewWrapper) {
+  function invoke$lambda(closure$serialValue) {
+    return function () {
+      return ThemeBrightnessTier$valueOf(closure$serialValue);
+    };
+  }
+  function invoke_0($receiver, serialValue) {
+    var tmp$;
+    tmp$ = tryOrNull(invoke$lambda(serialValue));
+    if (tmp$ == null) {
+      return null;
+    }
+    return new ThemeSwatchModel$brightness(tmp$);
+  }
+  function invoke_1($receiver, viewWrapper) {
     var tmp$, tmp$_0, tmp$_1;
     tmp$_1 = ThemeSwatchModel$Companion_getInstance();
     var $receiver_0 = viewWrapper.htmlElement.id;
@@ -675,20 +703,20 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     if (tmp$_0 == null) {
       return null;
     }
-    return invoke_2(tmp$_1, tmp$, tmp$_0);
+    return invoke_3(tmp$_1, tmp$, tmp$_0);
   }
-  function invoke_1($receiver, htmlElement) {
-    return invoke_0(ThemeSwatchModel$Companion_getInstance(), new ThemeSwatchViewWrapper(htmlElement));
+  function invoke_2($receiver, htmlElement) {
+    return invoke_1(ThemeSwatchModel$Companion_getInstance(), new ThemeSwatchViewWrapper(htmlElement));
   }
-  function invoke$lambda(closure$model) {
+  function invoke$lambda_0(closure$model) {
     return function () {
       return closure$model;
     };
   }
-  function invoke_2($receiver, id, model) {
+  function invoke_3($receiver, id, model) {
     if (id === void 0)
       id = null;
-    return get_0(existingModels, id != null ? id : get_serialValue(model), invoke$lambda(model));
+    return get_0(existingModels, id != null ? id : get_serialValue(model), invoke$lambda_0(model));
   }
   function ThemeSwatchViewWrapper(htmlElement) {
     ThemeSwatchViewWrapper$Companion_getInstance();
@@ -722,12 +750,13 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     simpleName: 'ThemeSwatchViewWrapper',
     interfaces: [WrappedHtmlView]
   };
-  function main$lambda() {
+  function main$lambda(it) {
     Setup_getInstance().performCommonPageConnections();
+    Setup_getInstance().reloadStates();
     return Unit;
   }
   function main(args) {
-    $(main$lambda);
+    $(document).ready(main$lambda);
   }
   function Setup() {
     Setup_instance = this;
@@ -758,6 +787,12 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   Setup.prototype.connectAllThemeSwatches_0 = function () {
     this.themeSwatchControllers_0.addAll_brywnq$(filterNotNull($(ThemeSwatchViewWrapper$Companion_getInstance().themeSwatchCssSelector).map(Setup$connectAllThemeSwatches$lambda)));
   };
+  Setup.prototype.reloadStates = function () {
+    this.reloadTheme_0();
+  };
+  Setup.prototype.reloadTheme_0 = function () {
+    ThemeController_getInstance().reloadTheme();
+  };
   Setup.$metadata$ = {
     kind: Kind_OBJECT,
     simpleName: 'Setup',
@@ -769,6 +804,199 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
       new Setup();
     }
     return Setup_instance;
+  }
+  function LocalStorage() {
+    LocalStorage_instance = this;
+    AbstractMutableCollection.call(this);
+  }
+  LocalStorage.prototype.get_61zpoe$ = function (keyName) {
+    return window.localStorage.getItem(keyName);
+  };
+  LocalStorage.prototype.set_jyasbz$ = function (keyName, newValue) {
+    if (newValue == null) {
+      window.localStorage.removeItem(keyName);
+    }
+     else {
+      window.localStorage.setItem(keyName, newValue);
+    }
+  };
+  LocalStorage.prototype.clear = function () {
+    window.localStorage.clear();
+  };
+  Object.defineProperty(LocalStorage.prototype, 'size', {
+    get: function () {
+      return window.localStorage.length;
+    }
+  });
+  function LocalStorage$iterator$ObjectLiteral() {
+    this.index = 0;
+  }
+  LocalStorage$iterator$ObjectLiteral.prototype.hasNext = function () {
+    return this.index < LocalStorage_getInstance().size;
+  };
+  LocalStorage$iterator$ObjectLiteral.prototype.next = function () {
+    var tmp$, tmp$_0;
+    var tmp$_1;
+    if ((tmp$ = invoke_5(StoragePair$Companion_getInstance(), window.localStorage, this.index)) != null) {
+      this.index = this.index + 1 | 0;
+      tmp$_1 = tmp$;
+    }
+     else
+      tmp$_1 = null;
+    var tmp$_2;
+    if ((tmp$_0 = tmp$_1) != null)
+      tmp$_2 = tmp$_0;
+    else {
+      throw IllegalStateException_init(('Local storage broke its contract that there was an item at index ' + this.index).toString());
+    }
+    return tmp$_2;
+  };
+  LocalStorage$iterator$ObjectLiteral.prototype.remove = function () {
+    var tmp$, tmp$_0;
+    tmp$_0 = window.localStorage;
+    var tmp$_1;
+    if ((tmp$ = window.localStorage.key(this.index)) != null)
+      tmp$_1 = tmp$;
+    else {
+      throw IllegalStateException_init(('Local storage broke its contract that there was an item at index ' + this.index).toString());
+    }
+    tmp$_0.removeItem(tmp$_1);
+  };
+  LocalStorage$iterator$ObjectLiteral.$metadata$ = {
+    kind: Kind_CLASS,
+    interfaces: [MutableIterator]
+  };
+  LocalStorage.prototype.iterator = function () {
+    return new LocalStorage$iterator$ObjectLiteral();
+  };
+  LocalStorage.prototype.add_11rb$ = function (element) {
+    window.localStorage.setItem(element.keyName, element.value);
+    return true;
+  };
+  LocalStorage.prototype.remove_11rb$ = function (element) {
+    if (window.localStorage.getItem(element.keyName) == null) {
+      return false;
+    }
+     else {
+      window.localStorage.removeItem(element.keyName);
+      return true;
+    }
+  };
+  LocalStorage.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'LocalStorage',
+    interfaces: [AbstractMutableCollection]
+  };
+  var LocalStorage_instance = null;
+  function LocalStorage_getInstance() {
+    if (LocalStorage_instance === null) {
+      new LocalStorage();
+    }
+    return LocalStorage_instance;
+  }
+  function invoke_4($receiver, namespace) {
+    return new NamespacedLocalStorage(namespace);
+  }
+  function get_blueHusky($receiver) {
+    return new NamespacedLocalStorage('org.bh');
+  }
+  function NamespacedLocalStorage(namespace) {
+    this.namespace = namespace;
+  }
+  NamespacedLocalStorage.prototype.namespaced_0 = function ($receiver) {
+    return this.namespace + '.' + $receiver;
+  };
+  NamespacedLocalStorage.prototype.isInNamespace_0 = function ($receiver) {
+    return startsWith($receiver, this.namespace);
+  };
+  NamespacedLocalStorage.prototype.get_61zpoe$ = function (keyName) {
+    return LocalStorage_getInstance().get_61zpoe$(this.namespaced_0(keyName));
+  };
+  NamespacedLocalStorage.prototype.set_jyasbz$ = function (keyName, newValue) {
+    LocalStorage_getInstance().set_jyasbz$(this.namespaced_0(keyName), newValue);
+  };
+  NamespacedLocalStorage.prototype.clear = function () {
+    var $receiver = LocalStorage_getInstance();
+    var destination = ArrayList_init();
+    var tmp$;
+    tmp$ = $receiver.iterator();
+    while (tmp$.hasNext()) {
+      var element = tmp$.next();
+      if (this.isInNamespace_0(element.keyName))
+        destination.add_11rb$(element);
+    }
+    var tmp$_0;
+    tmp$_0 = destination.iterator();
+    while (tmp$_0.hasNext()) {
+      var element_0 = tmp$_0.next();
+      LocalStorage_getInstance().set_jyasbz$(element_0.keyName, null);
+    }
+  };
+  NamespacedLocalStorage.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'NamespacedLocalStorage',
+    interfaces: []
+  };
+  function StoragePair(keyName, value) {
+    StoragePair$Companion_getInstance();
+    this.keyName = keyName;
+    this.value = value;
+  }
+  function StoragePair$Companion() {
+    StoragePair$Companion_instance = this;
+  }
+  StoragePair$Companion.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'Companion',
+    interfaces: []
+  };
+  var StoragePair$Companion_instance = null;
+  function StoragePair$Companion_getInstance() {
+    if (StoragePair$Companion_instance === null) {
+      new StoragePair$Companion();
+    }
+    return StoragePair$Companion_instance;
+  }
+  StoragePair.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'StoragePair',
+    interfaces: []
+  };
+  StoragePair.prototype.component1 = function () {
+    return this.keyName;
+  };
+  StoragePair.prototype.component2 = function () {
+    return this.value;
+  };
+  StoragePair.prototype.copy_puj7f4$ = function (keyName, value) {
+    return new StoragePair(keyName === void 0 ? this.keyName : keyName, value === void 0 ? this.value : value);
+  };
+  StoragePair.prototype.toString = function () {
+    return 'StoragePair(keyName=' + Kotlin.toString(this.keyName) + (', value=' + Kotlin.toString(this.value)) + ')';
+  };
+  StoragePair.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.keyName) | 0;
+    result = result * 31 + Kotlin.hashCode(this.value) | 0;
+    return result;
+  };
+  StoragePair.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.keyName, other.keyName) && Kotlin.equals(this.value, other.value)))));
+  };
+  function invoke_5($receiver, from, at) {
+    var tmp$, tmp$_0;
+    var storage = from;
+    var index = at;
+    tmp$ = from.key(index);
+    if (tmp$ == null) {
+      return null;
+    }
+    var keyName = tmp$;
+    tmp$_0 = storage.getItem(keyName);
+    if (tmp$_0 == null) {
+      return null;
+    }
+    return new StoragePair(keyName, tmp$_0);
   }
   function get_0($receiver, key, backupValue) {
     var tmp$;
@@ -782,6 +1010,21 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
       tmp$ = value;
     }
     return tmp$;
+  }
+  var get_groups = defineInlineFunction('BHStudios General Scripts.org.bh.scripts.general.utilities.get_groups_tgewol$', function ($receiver) {
+    return $receiver.groups;
+  });
+  function tryOrNull(danger) {
+    try {
+      return danger();
+    }
+     catch (_) {
+      if (Kotlin.isType(_, Throwable)) {
+        return null;
+      }
+       else
+        throw _;
+    }
   }
   function ThemeBrightnessTier(name, ordinal) {
     Enum.call(this);
@@ -820,6 +1063,14 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   function ThemeBrightnessTier$Companion() {
     ThemeBrightnessTier$Companion_instance = this;
   }
+  Object.defineProperty(ThemeBrightnessTier$Companion.prototype, 'default', {
+    get: defineInlineFunction('BHStudios General Scripts.org.bh.scripts.theming.ThemeBrightnessTier.Companion.get_default', wrapFunction(function () {
+      var ThemeBrightnessTier = _.org.bh.scripts.theming.ThemeBrightnessTier;
+      return function () {
+        return ThemeBrightnessTier.light;
+      };
+    }))
+  });
   ThemeBrightnessTier$Companion.$metadata$ = {
     kind: Kind_OBJECT,
     simpleName: 'Companion',
@@ -859,15 +1110,294 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   function get_className_0($receiver) {
     return 'brightness-' + $receiver.name;
   }
-  function get_allClassNames($receiver) {
+  var get_serialKey = defineInlineFunction('BHStudios General Scripts.org.bh.scripts.theming.get_serialKey_yxqlj5$', function ($receiver) {
+    return 'brightness';
+  });
+  var get_serialValue_0 = defineInlineFunction('BHStudios General Scripts.org.bh.scripts.theming.get_serialValue_aarxa7$', function ($receiver) {
+    return $receiver.name;
+  });
+  function initFromPage($receiver) {
     var $receiver_0 = ThemeBrightnessTier$values();
-    var destination = ArrayList_init_0($receiver_0.length);
-    var tmp$;
-    for (tmp$ = 0; tmp$ !== $receiver_0.length; ++tmp$) {
-      var item = $receiver_0[tmp$];
-      destination.add_11rb$(get_className_0(item));
+    var firstOrNull$result;
+    firstOrNull$break: do {
+      var tmp$;
+      for (tmp$ = 0; tmp$ !== $receiver_0.length; ++tmp$) {
+        var element = $receiver_0[tmp$];
+        if ($(':root').hasClass(get_className_0(element))) {
+          firstOrNull$result = element;
+          break firstOrNull$break;
+        }
+      }
+      firstOrNull$result = null;
     }
-    return destination;
+     while (false);
+    return firstOrNull$result;
+  }
+  function invoke_6($receiver, serialValue) {
+    var $receiver_0 = ThemeBrightnessTier$values();
+    var firstOrNull$result;
+    firstOrNull$break: do {
+      var tmp$;
+      for (tmp$ = 0; tmp$ !== $receiver_0.length; ++tmp$) {
+        var element = $receiver_0[tmp$];
+        if (equals(element.name, serialValue)) {
+          firstOrNull$result = element;
+          break firstOrNull$break;
+        }
+      }
+      firstOrNull$result = null;
+    }
+     while (false);
+    return firstOrNull$result;
+  }
+  function ThemeColor(name, sheetSuffix) {
+    ThemeColor$Companion_getInstance();
+    if (sheetSuffix === void 0)
+      sheetSuffix = name;
+    this.name = name;
+    this.sheetSuffix = sheetSuffix;
+  }
+  Object.defineProperty(ThemeColor.prototype, 'themeUrl', {
+    get: function () {
+      return ThemeColor$Companion_getInstance().stylesheetUrl_0(this.name);
+    }
+  });
+  function ThemeColor$Companion() {
+    ThemeColor$Companion_instance = this;
+    this.stylesheetsProtocol_0 = 'https';
+    this.stylesheetsDomain_0 = 'stylesheets.bhstudios.org';
+    this.stylesheetsDirectoryPath_0 = 'assets/v2/neon';
+    this.stylesheetNamePrefix_0 = 'neon-';
+    this.stylesheetNameSuffix_0 = '.css';
+    this.stylesheetBaseUrl_0 = 'https://stylesheets.bhstudios.org/assets/v2/neon';
+    this.stylesheetRegexPatternColorGroupName_8be2vx$ = 'color';
+    this.stylesheetUrlRegexPattern_0 = '^https://stylesheets.bhstudios.org/assets/v2/neon/neon-(?<color>.+?).css';
+    this.stylesheetUrlRegex_8be2vx$_fkfzjy$_0 = lazy(ThemeColor$Companion$stylesheetUrlRegex$lambda(this));
+    this.serialKey = 'color';
+  }
+  Object.defineProperty(ThemeColor$Companion.prototype, 'stylesheetUrlRegex_8be2vx$', {
+    get: function () {
+      return this.stylesheetUrlRegex_8be2vx$_fkfzjy$_0.value;
+    }
+  });
+  ThemeColor$Companion.prototype.stylesheetFileName_0 = function (color) {
+    return this.stylesheetNamePrefix_0 + color + this.stylesheetNameSuffix_0;
+  };
+  ThemeColor$Companion.prototype.stylesheetUrl_0 = function (color) {
+    return this.stylesheetBaseUrl_0 + '/' + this.stylesheetFileName_0(color);
+  };
+  function ThemeColor$Companion$stylesheetUrlRegex$lambda(this$ThemeColor$) {
+    return function () {
+      return new RegExp(this$ThemeColor$.stylesheetUrlRegexPattern_0);
+    };
+  }
+  ThemeColor$Companion.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'Companion',
+    interfaces: []
+  };
+  var ThemeColor$Companion_instance = null;
+  function ThemeColor$Companion_getInstance() {
+    if (ThemeColor$Companion_instance === null) {
+      new ThemeColor$Companion();
+    }
+    return ThemeColor$Companion_instance;
+  }
+  ThemeColor.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'ThemeColor',
+    interfaces: []
+  };
+  ThemeColor.prototype.component1 = function () {
+    return this.name;
+  };
+  ThemeColor.prototype.component2 = function () {
+    return this.sheetSuffix;
+  };
+  ThemeColor.prototype.copy_puj7f4$ = function (name, sheetSuffix) {
+    return new ThemeColor(name === void 0 ? this.name : name, sheetSuffix === void 0 ? this.sheetSuffix : sheetSuffix);
+  };
+  ThemeColor.prototype.toString = function () {
+    return 'ThemeColor(name=' + Kotlin.toString(this.name) + (', sheetSuffix=' + Kotlin.toString(this.sheetSuffix)) + ')';
+  };
+  ThemeColor.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.name) | 0;
+    result = result * 31 + Kotlin.hashCode(this.sheetSuffix) | 0;
+    return result;
+  };
+  ThemeColor.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.name, other.name) && Kotlin.equals(this.sheetSuffix, other.sheetSuffix)))));
+  };
+  function get_serialValue_1($receiver) {
+    return $receiver.name;
+  }
+  function get_default($receiver) {
+    return new ThemeColor('Water');
+  }
+  function initFromPage_0($receiver) {
+    var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3;
+    tmp$_0 = typeof (tmp$ = $(ThemeController_getInstance().themeSheetLinkElementSelector).attr('href')) === 'string' ? tmp$ : null;
+    if (tmp$_0 == null) {
+      return null;
+    }
+    var stylesheetUrl = tmp$_0;
+    tmp$_1 = $receiver.stylesheetUrlRegex_8be2vx$.exec(stylesheetUrl);
+    if (tmp$_1 == null) {
+      return null;
+    }
+    var match = tmp$_1;
+    tmp$_3 = typeof (tmp$_2 = match.groups[$receiver.stylesheetRegexPatternColorGroupName_8be2vx$]) === 'string' ? tmp$_2 : null;
+    if (tmp$_3 == null) {
+      return null;
+    }
+    var colorName = tmp$_3;
+    return new ThemeColor(colorName);
+  }
+  function ThemeController() {
+    ThemeController_instance = this;
+    this.themeKey = 'theme';
+    this.themeSheetLinkElementSelector = 'link#theme-stylesheet';
+    this.frameworkSheetLinkElementSelector = 'link#framework-stylesheet';
+  }
+  ThemeController.prototype.reloadTheme = function () {
+    var tmp$;
+    if ((tmp$ = this.loadTheme()) != null) {
+      getCallableRef('setTheme', function ($receiver, model) {
+        return $receiver.setTheme_xxas9g$(model), Unit;
+      }.bind(null, this))(tmp$);
+    }
+  };
+  ThemeController.prototype.saveTheme_xxas9g$ = function (model) {
+    var tmp$, tmp$_0;
+    var serialModel = (tmp$_0 = (tmp$ = this.loadTheme()) != null ? getCallableRef('fillingInMissingData', function ($receiver, other) {
+      return fillingInMissingData($receiver, other);
+    }.bind(null, model))(tmp$) : null) != null ? tmp$_0 : model;
+    get_blueHusky(LocalStorage_getInstance()).set_jyasbz$(this.themeKey, serialModel.serialValue);
+  };
+  ThemeController.prototype.setTheme_xxas9g$ = function (model) {
+    var tmp$, tmp$_0;
+    if ((tmp$ = model.color) != null) {
+      getCallableRef('setColor', function ($receiver, newColor) {
+        return $receiver.setColor_y2sk0q$(newColor), Unit;
+      }.bind(null, this))(tmp$);
+    }
+    if ((tmp$_0 = model.brightnessTier) != null) {
+      getCallableRef('setBrightness', function ($receiver, newBrightness) {
+        return $receiver.setBrightness_9hws1c$(newBrightness), Unit;
+      }.bind(null, this))(tmp$_0);
+    }
+    this.saveTheme_xxas9g$(model);
+  };
+  ThemeController.prototype.loadTheme = function () {
+    var tmp$;
+    return (tmp$ = get_blueHusky(LocalStorage_getInstance()).get_61zpoe$(this.themeKey)) != null ? invoke_7(ThemeModel$Companion_getInstance(), tmp$) : null;
+  };
+  ThemeController.prototype.setColor_y2sk0q$ = function (newColor) {
+    $(this.themeSheetLinkElementSelector).attr('href', newColor.themeUrl);
+  };
+  ThemeController.prototype.setBrightness_9hws1c$ = function (newBrightness) {
+    $(':root').removeClass(joinToString(ThemeBrightnessTier$values(), ' ', void 0, void 0, void 0, void 0, getPropertyCallableRef('className', 1, function ($receiver) {
+      return get_className_0($receiver);
+    }))).addClass(get_className_0(newBrightness));
+  };
+  ThemeController.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'ThemeController',
+    interfaces: []
+  };
+  var ThemeController_instance = null;
+  function ThemeController_getInstance() {
+    if (ThemeController_instance === null) {
+      new ThemeController();
+    }
+    return ThemeController_instance;
+  }
+  function ThemeModel(color, brightnessTier) {
+    ThemeModel$Companion_getInstance();
+    this.color = color;
+    this.brightnessTier = brightnessTier;
+  }
+  Object.defineProperty(ThemeModel.prototype, 'serialValue', {
+    get: function () {
+      var tmp$, tmp$_0, tmp$_1;
+      tmp$_0 = to(ThemeColor$Companion_getInstance().serialKey, (tmp$ = this.color) != null ? get_serialValue_1(tmp$) : null);
+      ThemeBrightnessTier$Companion_getInstance();
+      return JSON.stringify(json([tmp$_0, to('brightness', (tmp$_1 = this.brightnessTier) != null ? tmp$_1.name : null)]));
+    }
+  });
+  function ThemeModel$Companion() {
+    ThemeModel$Companion_instance = this;
+  }
+  ThemeModel$Companion.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'Companion',
+    interfaces: []
+  };
+  var ThemeModel$Companion_instance = null;
+  function ThemeModel$Companion_getInstance() {
+    if (ThemeModel$Companion_instance === null) {
+      new ThemeModel$Companion();
+    }
+    return ThemeModel$Companion_instance;
+  }
+  ThemeModel.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'ThemeModel',
+    interfaces: []
+  };
+  ThemeModel.prototype.component1 = function () {
+    return this.color;
+  };
+  ThemeModel.prototype.component2 = function () {
+    return this.brightnessTier;
+  };
+  ThemeModel.prototype.copy_ek5dvg$ = function (color, brightnessTier) {
+    return new ThemeModel(color === void 0 ? this.color : color, brightnessTier === void 0 ? this.brightnessTier : brightnessTier);
+  };
+  ThemeModel.prototype.toString = function () {
+    return 'ThemeModel(color=' + Kotlin.toString(this.color) + (', brightnessTier=' + Kotlin.toString(this.brightnessTier)) + ')';
+  };
+  ThemeModel.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.color) | 0;
+    result = result * 31 + Kotlin.hashCode(this.brightnessTier) | 0;
+    return result;
+  };
+  ThemeModel.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.color, other.color) && Kotlin.equals(this.brightnessTier, other.brightnessTier)))));
+  };
+  function invoke_7($receiver, serialValue) {
+    var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3, tmp$_4;
+    var json = JSON.parse(serialValue);
+    var color = (tmp$_1 = (tmp$_0 = typeof (tmp$ = json[ThemeColor$Companion_getInstance().serialKey]) === 'string' ? tmp$ : null) != null ? new ThemeColor(tmp$_0) : null) != null ? tmp$_1 : get_default(ThemeColor$Companion_getInstance());
+    ThemeBrightnessTier$Companion_getInstance();
+    var brightnessTier = (tmp$_4 = (tmp$_3 = typeof (tmp$_2 = json['brightness']) === 'string' ? tmp$_2 : null) != null ? invoke_6(ThemeBrightnessTier$Companion_getInstance(), tmp$_3) : null) != null ? tmp$_4 : ThemeBrightnessTier.light;
+    return new ThemeModel(color, brightnessTier);
+  }
+  function invoke_8($receiver, swatchModel, getMissingData) {
+    if (getMissingData === void 0)
+      getMissingData = false;
+    var tmp$;
+    if (Kotlin.isType(swatchModel, ThemeSwatchModel$color))
+      tmp$ = invoke_9(ThemeModel$Companion_getInstance(), swatchModel, getMissingData);
+    else if (Kotlin.isType(swatchModel, ThemeSwatchModel$brightness))
+      tmp$ = invoke_10(ThemeModel$Companion_getInstance(), swatchModel, getMissingData);
+    else
+      tmp$ = Kotlin.noWhenBranchMatched();
+    return tmp$;
+  }
+  function invoke_9($receiver, swatchColorModel, getMissingData) {
+    var tmp$;
+    return new ThemeModel(new ThemeColor(swatchColorModel.sheetName), getMissingData ? (tmp$ = initFromPage(ThemeBrightnessTier$Companion_getInstance())) != null ? tmp$ : ThemeBrightnessTier.light : null);
+  }
+  function invoke_10($receiver, swatchBrightnessModel, getMissingData) {
+    var tmp$;
+    return new ThemeModel(getMissingData ? (tmp$ = initFromPage_0(ThemeColor$Companion_getInstance())) != null ? tmp$ : get_default(ThemeColor$Companion_getInstance()) : null, swatchBrightnessModel.brightnessTier);
+  }
+  function fillingInMissingData($receiver, other) {
+    var tmp$, tmp$_0;
+    return new ThemeModel((tmp$ = $receiver.color) != null ? tmp$ : other.color, (tmp$_0 = $receiver.brightnessTier) != null ? tmp$_0 : other.brightnessTier);
   }
   var package$jQueryInterface = _.jQueryInterface || (_.jQueryInterface = {});
   package$jQueryInterface.get_parentElement_s15u7w$ = get_parentElement;
@@ -915,25 +1445,47 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   var package$themeSwatches = package$components.themeSwatches || (package$components.themeSwatches = {});
   package$themeSwatches.ThemeSwatchController = ThemeSwatchController;
   package$themeSwatches.invoke_28zv7k$ = invoke;
+  Object.defineProperty(ThemeSwatchModel$color, 'Companion', {
+    get: ThemeSwatchModel$color$Companion_getInstance
+  });
   ThemeSwatchModel.color = ThemeSwatchModel$color;
+  Object.defineProperty(ThemeSwatchModel$brightness, 'Companion', {
+    get: ThemeSwatchModel$brightness$Companion_getInstance
+  });
   ThemeSwatchModel.brightness = ThemeSwatchModel$brightness;
   Object.defineProperty(ThemeSwatchModel, 'Companion', {
     get: ThemeSwatchModel$Companion_getInstance
   });
   package$themeSwatches.ThemeSwatchModel = ThemeSwatchModel;
+  $$importsForInline$$['BHStudios General Scripts'] = _;
   package$themeSwatches.get_serialValue_ucmv8k$ = get_serialValue;
   package$themeSwatches.get_colorSheetName_ucmv8k$ = get_colorSheetName;
-  package$themeSwatches.invoke_1gi96$ = invoke_0;
-  package$themeSwatches.invoke_vyzvof$ = invoke_1;
-  package$themeSwatches.invoke_78ie5c$ = invoke_2;
+  package$themeSwatches.invoke_hom2mx$ = invoke_0;
+  package$themeSwatches.invoke_1gi96$ = invoke_1;
+  package$themeSwatches.invoke_vyzvof$ = invoke_2;
+  package$themeSwatches.invoke_78ie5c$ = invoke_3;
   Object.defineProperty(ThemeSwatchViewWrapper, 'Companion', {
     get: ThemeSwatchViewWrapper$Companion_getInstance
   });
   package$themeSwatches.ThemeSwatchViewWrapper = ThemeSwatchViewWrapper;
   var package$general = package$scripts.general || (package$scripts.general = {});
   package$general.main_kand9s$ = main;
+  var package$serialization = package$general.serialization || (package$general.serialization = {});
+  Object.defineProperty(package$serialization, 'LocalStorage', {
+    get: LocalStorage_getInstance
+  });
+  package$serialization.invoke_miw9k7$ = invoke_4;
+  package$serialization.get_blueHusky_gzevrd$ = get_blueHusky;
+  package$serialization.NamespacedLocalStorage = NamespacedLocalStorage;
+  Object.defineProperty(StoragePair, 'Companion', {
+    get: StoragePair$Companion_getInstance
+  });
+  package$serialization.StoragePair = StoragePair;
+  package$serialization.invoke_kzvs0k$ = invoke_5;
   var package$utilities = package$general.utilities || (package$general.utilities = {});
   package$utilities.get_9wl75a$ = get_0;
+  package$utilities.get_groups_tgewol$ = get_groups;
+  package$utilities.tryOrNull_klfg04$ = tryOrNull;
   Object.defineProperty(ThemeBrightnessTier, 'black', {
     get: ThemeBrightnessTier$black_getInstance
   });
@@ -946,15 +1498,39 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   Object.defineProperty(ThemeBrightnessTier, 'white', {
     get: ThemeBrightnessTier$white_getInstance
   });
+  var package$theming = package$scripts.theming || (package$scripts.theming = {});
+  package$theming.ThemeBrightnessTier = ThemeBrightnessTier;
   Object.defineProperty(ThemeBrightnessTier, 'Companion', {
     get: ThemeBrightnessTier$Companion_getInstance
   });
-  var package$theming = package$scripts.theming || (package$scripts.theming = {});
-  package$theming.ThemeBrightnessTier = ThemeBrightnessTier;
   package$theming.get_className_aarxa7$ = get_className_0;
-  package$theming.get_allClassNames_yxqlj5$ = get_allClassNames;
+  package$theming.get_serialKey_yxqlj5$ = get_serialKey;
+  package$theming.get_serialValue_aarxa7$ = get_serialValue_0;
+  package$theming.initFromPage_yxqlj5$ = initFromPage;
+  package$theming.invoke_el3xgj$ = invoke_6;
+  Object.defineProperty(ThemeColor, 'Companion', {
+    get: ThemeColor$Companion_getInstance
+  });
+  package$theming.ThemeColor = ThemeColor;
+  package$theming.get_serialValue_923l1l$ = get_serialValue_1;
+  package$theming.get_default_dz5wqd$ = get_default;
+  package$theming.initFromPage_dz5wqd$ = initFromPage_0;
+  Object.defineProperty(package$theming, 'ThemeController', {
+    get: ThemeController_getInstance
+  });
+  Object.defineProperty(ThemeModel, 'Companion', {
+    get: ThemeModel$Companion_getInstance
+  });
+  package$theming.ThemeModel = ThemeModel;
+  package$theming.invoke_jpqs0p$ = invoke_7;
+  package$theming.invoke_d46xsf$ = invoke_8;
+  package$theming.invoke_g3vhmi$ = invoke_9;
+  package$theming.invoke_75pd5s$ = invoke_10;
+  package$theming.fillingInMissingData_h0zypj$ = fillingInMissingData;
   existingModels = LinkedHashMap_init();
   main([]);
   Kotlin.defineModule('BHStudios General Scripts', _);
   return _;
 }(typeof this['BHStudios General Scripts'] === 'undefined' ? {} : this['BHStudios General Scripts'], kotlin);
+
+//# sourceMappingURL=BHStudios General Scripts.js.map
