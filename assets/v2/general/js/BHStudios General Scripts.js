@@ -1155,13 +1155,19 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     if (sheetSuffix === void 0)
       sheetSuffix = name;
     this.name = name;
-    this.sheetSuffix = sheetSuffix;
+    this.sheetSuffix = sheetSuffix.toLowerCase();
   }
   Object.defineProperty(ThemeColor.prototype, 'themeUrl', {
     get: function () {
-      return ThemeColor$Companion_getInstance().stylesheetUrl_0(this.name);
+      return this.stylesheetUrl_0();
     }
   });
+  ThemeColor.prototype.stylesheetFileName_0 = function () {
+    return ThemeColor$Companion_getInstance().stylesheetNamePrefix_0 + this.sheetSuffix + ThemeColor$Companion_getInstance().stylesheetNameSuffix_0;
+  };
+  ThemeColor.prototype.stylesheetUrl_0 = function () {
+    return ThemeColor$Companion_getInstance().stylesheetBaseUrl_0 + '/' + this.stylesheetFileName_0();
+  };
   function ThemeColor$Companion() {
     ThemeColor$Companion_instance = this;
     this.stylesheetsProtocol_0 = 'https';
@@ -1180,12 +1186,6 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
       return this.stylesheetUrlRegex_8be2vx$_fkfzjy$_0.value;
     }
   });
-  ThemeColor$Companion.prototype.stylesheetFileName_0 = function (color) {
-    return this.stylesheetNamePrefix_0 + color + this.stylesheetNameSuffix_0;
-  };
-  ThemeColor$Companion.prototype.stylesheetUrl_0 = function (color) {
-    return this.stylesheetBaseUrl_0 + '/' + this.stylesheetFileName_0(color);
-  };
   function ThemeColor$Companion$stylesheetUrlRegex$lambda(this$ThemeColor$) {
     return function () {
       return new RegExp(this$ThemeColor$.stylesheetUrlRegexPattern_0);
@@ -1207,27 +1207,6 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     kind: Kind_CLASS,
     simpleName: 'ThemeColor',
     interfaces: []
-  };
-  ThemeColor.prototype.component1 = function () {
-    return this.name;
-  };
-  ThemeColor.prototype.component2 = function () {
-    return this.sheetSuffix;
-  };
-  ThemeColor.prototype.copy_puj7f4$ = function (name, sheetSuffix) {
-    return new ThemeColor(name === void 0 ? this.name : name, sheetSuffix === void 0 ? this.sheetSuffix : sheetSuffix);
-  };
-  ThemeColor.prototype.toString = function () {
-    return 'ThemeColor(name=' + Kotlin.toString(this.name) + (', sheetSuffix=' + Kotlin.toString(this.sheetSuffix)) + ')';
-  };
-  ThemeColor.prototype.hashCode = function () {
-    var result = 0;
-    result = result * 31 + Kotlin.hashCode(this.name) | 0;
-    result = result * 31 + Kotlin.hashCode(this.sheetSuffix) | 0;
-    return result;
-  };
-  ThemeColor.prototype.equals = function (other) {
-    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.name, other.name) && Kotlin.equals(this.sheetSuffix, other.sheetSuffix)))));
   };
   function get_serialValue_1($receiver) {
     return $receiver.name;

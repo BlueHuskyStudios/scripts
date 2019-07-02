@@ -5,10 +5,15 @@ import kotlin.js.RegExp
 import org.bh.scripts.general.utilities.*
 
 
-data class ThemeColor(val name: String, val sheetSuffix: String = name) {
+
+class ThemeColor(val name: String, sheetSuffix: String = name) {
+
+    val sheetSuffix: String = sheetSuffix.toLowerCase()
+    val themeUrl: String? get() { return stylesheetUrl() }
 
 
-    val themeUrl: String? get() { return stylesheetUrl(name) }
+    private fun stylesheetFileName() = "$stylesheetNamePrefix$sheetSuffix$stylesheetNameSuffix"
+    private fun stylesheetUrl() = "$stylesheetBaseUrl/${stylesheetFileName()}"
 
 
     companion object {
@@ -23,10 +28,6 @@ data class ThemeColor(val name: String, val sheetSuffix: String = name) {
         internal const val stylesheetRegexPatternColorGroupName = "color"
         private const val stylesheetUrlRegexPattern = "^$stylesheetBaseUrl/$stylesheetNamePrefix(?<$stylesheetRegexPatternColorGroupName>.+?)$stylesheetNameSuffix"
         internal val stylesheetUrlRegex by lazy { RegExp(stylesheetUrlRegexPattern) }
-
-
-        private fun stylesheetFileName(color: String) = "$stylesheetNamePrefix$color$stylesheetNameSuffix"
-        private fun stylesheetUrl(color: String) = "$stylesheetBaseUrl/${stylesheetFileName(color)}"
 
         const val serialKey = "color"
     }
