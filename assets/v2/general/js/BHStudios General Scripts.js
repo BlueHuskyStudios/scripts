@@ -1,7 +1,6 @@
 if (typeof kotlin === 'undefined') {
   throw new Error("Error loading module 'BHStudios General Scripts'. Its dependency 'kotlin' was not found. Please, check whether 'kotlin' is loaded prior to 'BHStudios General Scripts'.");
-}
-this['BHStudios General Scripts'] = function (_, Kotlin) {
+}this['BHStudios General Scripts'] = function (_, Kotlin) {
   'use strict';
   var $$importsForInline$$ = _.$$importsForInline$$ || (_.$$importsForInline$$ = {});
   var defineInlineFunction = Kotlin.defineInlineFunction;
@@ -174,8 +173,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   function ButtonModel$Companion_getInstance() {
     if (ButtonModel$Companion_instance === null) {
       new ButtonModel$Companion();
-    }
-    return ButtonModel$Companion_instance;
+    }return ButtonModel$Companion_instance;
   }
   ButtonModel.$metadata$ = {
     kind: Kind_CLASS,
@@ -218,8 +216,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     var tmp$;
     if (buttonModel != null && sidebarController != null) {
       tmp$ = new SidebarButtonController(buttonModel, sidebarController);
-    }
-     else {
+    } else {
       tmp$ = null;
     }
     return tmp$;
@@ -233,8 +230,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   function SidebarButtonController$Companion_getInstance() {
     if (SidebarButtonController$Companion_instance === null) {
       new SidebarButtonController$Companion();
-    }
-    return SidebarButtonController$Companion_instance;
+    }return SidebarButtonController$Companion_instance;
   }
   function SidebarButtonController_init$lambda(this$SidebarButtonController) {
     return function (event) {
@@ -296,8 +292,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     this.suppressChangeReactions_0 = true;
     if (newView == null) {
       this.didShowOrHide_dqye30$(this.model.isShown, this.model.isShown);
-    }
-     else {
+    } else {
       loadFromView_0(this.model, newView);
       newView.scrimHtmlElement.click(SidebarController$didSetView$lambda(this));
     }
@@ -313,8 +308,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   SidebarController$Companion.prototype.invoke_ejp6n4$ = function (htmlElement) {
     if (htmlElement == null) {
       return this.anySidebar;
-    }
-     else {
+    } else {
       return new SidebarController(SidebarModel$Companion_getInstance().invoke_2rdptt$(htmlElement), new SidebarViewWrapper(htmlElement));
     }
   };
@@ -335,23 +329,19 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   function SidebarController$Companion_getInstance() {
     if (SidebarController$Companion_instance === null) {
       new SidebarController$Companion();
-    }
-    return SidebarController$Companion_instance;
+    }return SidebarController$Companion_instance;
   }
   SidebarController.prototype.didShowOrHide_dqye30$ = function (oldIsShown, newIsShown) {
     if (this.suppressChangeReactions_0) {
       return;
-    }
-    var view = this.view;
+    }var view = this.view;
     if (view == null) {
       if (newIsShown) {
         SidebarViewWrapper$Companion_getInstance().defaultContainerElement.addClass(SidebarViewWrapper$Companion_getInstance().sidebarShownClassName);
-      }
-       else {
+      } else {
         SidebarViewWrapper$Companion_getInstance().defaultContainerElement.removeClass(SidebarViewWrapper$Companion_getInstance().sidebarShownClassName);
       }
-    }
-     else {
+    } else {
       view.isShown = newIsShown;
     }
   };
@@ -432,8 +422,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   function SidebarModel$Companion_getInstance() {
     if (SidebarModel$Companion_instance === null) {
       new SidebarModel$Companion();
-    }
-    return SidebarModel$Companion_instance;
+    }return SidebarModel$Companion_instance;
   }
   function SidebarModel$isShown$lambda(this$SidebarModel) {
     return function (f, oldValue, newValue) {
@@ -463,8 +452,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     this.scrimHtmlElementGetter_0 = SidebarViewWrapper$Companion_getInstance().scrimElementGetter_r6ezyp$(this.containerElement_0);
     if (0 === this.scrimHtmlElementGetter_0().length) {
       this.containerElement_0.prepend(SidebarViewWrapper$Companion_getInstance().generateNewScrimHtmlString());
-    }
-  }
+    }}
   Object.defineProperty(SidebarViewWrapper.prototype, 'htmlElement', {
     get: function () {
       return this.htmlElement_1oaz9d$_0;
@@ -516,8 +504,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   function SidebarViewWrapper$Companion_getInstance() {
     if (SidebarViewWrapper$Companion_instance === null) {
       new SidebarViewWrapper$Companion();
-    }
-    return SidebarViewWrapper$Companion_instance;
+    }return SidebarViewWrapper$Companion_instance;
   }
   SidebarViewWrapper.$metadata$ = {
     kind: Kind_CLASS,
@@ -545,8 +532,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   function ThemeSwatchController$Companion_getInstance() {
     if (ThemeSwatchController$Companion_instance === null) {
       new ThemeSwatchController$Companion();
-    }
-    return ThemeSwatchController$Companion_instance;
+    }return ThemeSwatchController$Companion_instance;
   }
   function ThemeSwatchController_init$lambda(this$ThemeSwatchController) {
     return function (it) {
@@ -566,8 +552,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     tmp$ = invoke_1(ThemeSwatchModel$Companion_getInstance(), view);
     if (tmp$ == null) {
       return null;
-    }
-    var model = tmp$;
+    }var model = tmp$;
     return new ThemeSwatchController(model, view);
   }
   function ThemeSwatchModel() {
@@ -590,8 +575,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   function ThemeSwatchModel$color$Companion_getInstance() {
     if (ThemeSwatchModel$color$Companion_instance === null) {
       new ThemeSwatchModel$color$Companion();
-    }
-    return ThemeSwatchModel$color$Companion_instance;
+    }return ThemeSwatchModel$color$Companion_instance;
   }
   ThemeSwatchModel$color.$metadata$ = {
     kind: Kind_CLASS,
@@ -615,8 +599,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   function ThemeSwatchModel$brightness$Companion_getInstance() {
     if (ThemeSwatchModel$brightness$Companion_instance === null) {
       new ThemeSwatchModel$brightness$Companion();
-    }
-    return ThemeSwatchModel$brightness$Companion_instance;
+    }return ThemeSwatchModel$brightness$Companion_instance;
   }
   ThemeSwatchModel$brightness.$metadata$ = {
     kind: Kind_CLASS,
@@ -635,8 +618,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   function ThemeSwatchModel$Companion_getInstance() {
     if (ThemeSwatchModel$Companion_instance === null) {
       new ThemeSwatchModel$Companion();
-    }
-    return ThemeSwatchModel$Companion_instance;
+    }return ThemeSwatchModel$Companion_instance;
   }
   ThemeSwatchModel.$metadata$ = {
     kind: Kind_CLASS,
@@ -649,8 +631,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     else if (Kotlin.isType($receiver, ThemeSwatchModel$brightness)) {
       ThemeBrightnessTier$Companion_getInstance();
       return 'brightness' + '.' + $receiver.brightnessTier;
-    }
-     else
+    } else
       return Kotlin.noWhenBranchMatched();
   }
   function generateModel($receiver) {
@@ -658,13 +639,11 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     tmp$ = $receiver.htmlElement.getAttribute(ThemeSwatchViewWrapper$Companion_getInstance().themeSwatchTypeAttributeName);
     if (tmp$ == null) {
       return null;
-    }
-    var swatchType = tmp$;
+    }var swatchType = tmp$;
     tmp$_0 = $receiver.htmlElement.getAttribute(ThemeSwatchViewWrapper$Companion_getInstance().themeSwatchValueAttributeName);
     if (tmp$_0 == null) {
       return null;
-    }
-    var swatchValue = tmp$_0;
+    }var swatchValue = tmp$_0;
     if (equals(swatchType, ThemeColor$Companion_getInstance().serialKey))
       tmp$_1 = new ThemeSwatchModel$color(swatchValue);
     else {
@@ -691,8 +670,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     tmp$ = tryOrNull(invoke$lambda(serialValue));
     if (tmp$ == null) {
       return null;
-    }
-    return new ThemeSwatchModel$brightness(tmp$);
+    }return new ThemeSwatchModel$brightness(tmp$);
   }
   function invoke_1($receiver, viewWrapper) {
     var tmp$, tmp$_0, tmp$_1;
@@ -702,8 +680,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     tmp$_0 = generateModel(viewWrapper);
     if (tmp$_0 == null) {
       return null;
-    }
-    return invoke_3(tmp$_1, tmp$, tmp$_0);
+    }return invoke_3(tmp$_1, tmp$, tmp$_0);
   }
   function invoke_2($receiver, htmlElement) {
     return invoke_1(ThemeSwatchModel$Companion_getInstance(), new ThemeSwatchViewWrapper(htmlElement));
@@ -742,8 +719,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   function ThemeSwatchViewWrapper$Companion_getInstance() {
     if (ThemeSwatchViewWrapper$Companion_instance === null) {
       new ThemeSwatchViewWrapper$Companion();
-    }
-    return ThemeSwatchViewWrapper$Companion_instance;
+    }return ThemeSwatchViewWrapper$Companion_instance;
   }
   ThemeSwatchViewWrapper.$metadata$ = {
     kind: Kind_CLASS,
@@ -753,6 +729,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   function main$lambda(it) {
     Setup_getInstance().performCommonPageConnections();
     Setup_getInstance().reloadStates();
+    Setup_getInstance().showJsOnlyElements();
     return Unit;
   }
   function main(args) {
@@ -774,9 +751,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
       var sidebarElement = $('#' + toString(specifiedSidebarId)).get(0);
       if (sidebarElement != null) {
         return new SidebarButtonController(ButtonController_init(sidebarButtonElement), SidebarController$Companion_getInstance().invoke_ejp6n4$(sidebarElement));
-      }
-    }
-    return new SidebarButtonController(ButtonController_init(sidebarButtonElement), SidebarController$Companion_getInstance().invoke_ejp6n4$($('.sidebar').get(0)));
+      }}return new SidebarButtonController(ButtonController_init(sidebarButtonElement), SidebarController$Companion_getInstance().invoke_ejp6n4$($('.sidebar').get(0)));
   }
   Setup.prototype.connectAllSidebarsToSidebarButtons_0 = function () {
     addAll(this.sidebarButtonControllers_0, $('.show-sidebar-button').map(Setup$connectAllSidebarsToSidebarButtons$lambda));
@@ -793,6 +768,9 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   Setup.prototype.reloadTheme_0 = function () {
     ThemeController_getInstance().reloadTheme();
   };
+  Setup.prototype.showJsOnlyElements = function () {
+    $('.show-only-when-js-is-enabled').removeClass('show-only-when-js-is-enabled');
+  };
   Setup.$metadata$ = {
     kind: Kind_OBJECT,
     simpleName: 'Setup',
@@ -802,8 +780,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   function Setup_getInstance() {
     if (Setup_instance === null) {
       new Setup();
-    }
-    return Setup_instance;
+    }return Setup_instance;
   }
   function LocalStorage() {
     LocalStorage_instance = this;
@@ -815,8 +792,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   LocalStorage.prototype.set_jyasbz$ = function (keyName, newValue) {
     if (newValue == null) {
       window.localStorage.removeItem(keyName);
-    }
-     else {
+    } else {
       window.localStorage.setItem(keyName, newValue);
     }
   };
@@ -840,8 +816,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     if ((tmp$ = invoke_5(StoragePair$Companion_getInstance(), window.localStorage, this.index)) != null) {
       this.index = this.index + 1 | 0;
       tmp$_1 = tmp$;
-    }
-     else
+    } else
       tmp$_1 = null;
     var tmp$_2;
     if ((tmp$_0 = tmp$_1) != null)
@@ -876,8 +851,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   LocalStorage.prototype.remove_11rb$ = function (element) {
     if (window.localStorage.getItem(element.keyName) == null) {
       return false;
-    }
-     else {
+    } else {
       window.localStorage.removeItem(element.keyName);
       return true;
     }
@@ -891,8 +865,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   function LocalStorage_getInstance() {
     if (LocalStorage_instance === null) {
       new LocalStorage();
-    }
-    return LocalStorage_instance;
+    }return LocalStorage_instance;
   }
   function invoke_4($receiver, namespace) {
     return new NamespacedLocalStorage(namespace);
@@ -954,8 +927,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   function StoragePair$Companion_getInstance() {
     if (StoragePair$Companion_instance === null) {
       new StoragePair$Companion();
-    }
-    return StoragePair$Companion_instance;
+    }return StoragePair$Companion_instance;
   }
   StoragePair.$metadata$ = {
     kind: Kind_CLASS,
@@ -990,13 +962,11 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     tmp$ = from.key(index);
     if (tmp$ == null) {
       return null;
-    }
-    var keyName = tmp$;
+    }var keyName = tmp$;
     tmp$_0 = storage.getItem(keyName);
     if (tmp$_0 == null) {
       return null;
-    }
-    return new StoragePair(keyName, tmp$_0);
+    }return new StoragePair(keyName, tmp$_0);
   }
   function get_0($receiver, key, backupValue) {
     var tmp$;
@@ -1005,8 +975,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
       var answer = backupValue();
       $receiver.put_xwzc9p$(key, answer);
       tmp$ = answer;
-    }
-     else {
+    } else {
       tmp$ = value;
     }
     return tmp$;
@@ -1017,12 +986,10 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   function tryOrNull(danger) {
     try {
       return danger();
-    }
-     catch (_) {
+    } catch (_) {
       if (Kotlin.isType(_, Throwable)) {
         return null;
-      }
-       else
+      } else
         throw _;
     }
   }
@@ -1081,8 +1048,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     ThemeBrightnessTier_initFields();
     if (ThemeBrightnessTier$Companion_instance === null) {
       new ThemeBrightnessTier$Companion();
-    }
-    return ThemeBrightnessTier$Companion_instance;
+    }return ThemeBrightnessTier$Companion_instance;
   }
   ThemeBrightnessTier.$metadata$ = {
     kind: Kind_CLASS,
@@ -1126,8 +1092,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
         if ($(':root').hasClass(get_className_0(element))) {
           firstOrNull$result = element;
           break firstOrNull$break;
-        }
-      }
+        }}
       firstOrNull$result = null;
     }
      while (false);
@@ -1143,8 +1108,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
         if (equals(element.name, serialValue)) {
           firstOrNull$result = element;
           break firstOrNull$break;
-        }
-      }
+        }}
       firstOrNull$result = null;
     }
      while (false);
@@ -1200,8 +1164,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   function ThemeColor$Companion_getInstance() {
     if (ThemeColor$Companion_instance === null) {
       new ThemeColor$Companion();
-    }
-    return ThemeColor$Companion_instance;
+    }return ThemeColor$Companion_instance;
   }
   ThemeColor.$metadata$ = {
     kind: Kind_CLASS,
@@ -1219,18 +1182,15 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
     tmp$_0 = typeof (tmp$ = $(ThemeController_getInstance().themeSheetLinkElementSelector).attr('href')) === 'string' ? tmp$ : null;
     if (tmp$_0 == null) {
       return null;
-    }
-    var stylesheetUrl = tmp$_0;
+    }var stylesheetUrl = tmp$_0;
     tmp$_1 = $receiver.stylesheetUrlRegex_8be2vx$.exec(stylesheetUrl);
     if (tmp$_1 == null) {
       return null;
-    }
-    var match = tmp$_1;
+    }var match = tmp$_1;
     tmp$_3 = typeof (tmp$_2 = match.groups[$receiver.stylesheetRegexPatternColorGroupName_8be2vx$]) === 'string' ? tmp$_2 : null;
     if (tmp$_3 == null) {
       return null;
-    }
-    var colorName = tmp$_3;
+    }var colorName = tmp$_3;
     return new ThemeColor(colorName);
   }
   function ThemeController() {
@@ -1245,8 +1205,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
       getCallableRef('setTheme', function ($receiver, model) {
         return $receiver.setTheme_xxas9g$(model), Unit;
       }.bind(null, this))(tmp$);
-    }
-  };
+    }};
   ThemeController.prototype.saveTheme_xxas9g$ = function (model) {
     var tmp$, tmp$_0;
     var serialModel = (tmp$_0 = (tmp$ = this.loadTheme()) != null ? getCallableRef('fillingInMissingData', function ($receiver, other) {
@@ -1260,13 +1219,11 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
       getCallableRef('setColor', function ($receiver, newColor) {
         return $receiver.setColor_y2sk0q$(newColor), Unit;
       }.bind(null, this))(tmp$);
-    }
-    if ((tmp$_0 = model.brightnessTier) != null) {
+    }if ((tmp$_0 = model.brightnessTier) != null) {
       getCallableRef('setBrightness', function ($receiver, newBrightness) {
         return $receiver.setBrightness_9hws1c$(newBrightness), Unit;
       }.bind(null, this))(tmp$_0);
-    }
-    this.saveTheme_xxas9g$(model);
+    }this.saveTheme_xxas9g$(model);
   };
   ThemeController.prototype.loadTheme = function () {
     var tmp$;
@@ -1289,8 +1246,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   function ThemeController_getInstance() {
     if (ThemeController_instance === null) {
       new ThemeController();
-    }
-    return ThemeController_instance;
+    }return ThemeController_instance;
   }
   function ThemeModel(color, brightnessTier) {
     ThemeModel$Companion_getInstance();
@@ -1317,8 +1273,7 @@ this['BHStudios General Scripts'] = function (_, Kotlin) {
   function ThemeModel$Companion_getInstance() {
     if (ThemeModel$Companion_instance === null) {
       new ThemeModel$Companion();
-    }
-    return ThemeModel$Companion_instance;
+    }return ThemeModel$Companion_instance;
   }
   ThemeModel.$metadata$ = {
     kind: Kind_CLASS,

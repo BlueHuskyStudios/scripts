@@ -23,6 +23,7 @@ fun main(args: Array<String>) {
     jq(document).ready {
         Setup.performCommonPageConnections()
         Setup.reloadStates()
+        Setup.showJsOnlyElements()
     }
 }
 
@@ -33,6 +34,9 @@ private object Setup {
     private val sidebarButtonControllers = mutableListOf<SidebarButtonController>()
     private val themeSwatchControllers = mutableListOf<ThemeSwatchController>()
 
+
+
+    // MARK: - Connect
 
     fun performCommonPageConnections() {
         connectAllSidebarsToSidebarButtons()
@@ -73,6 +77,9 @@ private object Setup {
     }
 
 
+
+    // MARK: - Reload
+
     fun reloadStates() {
         reloadTheme()
     }
@@ -80,5 +87,14 @@ private object Setup {
 
     private fun reloadTheme() {
         ThemeController.reloadTheme()
+    }
+
+
+
+    // MARK: - JS Requirement Communication
+
+    fun showJsOnlyElements() {
+        jq(".show-only-when-js-is-enabled")
+            .removeClass("show-only-when-js-is-enabled")
     }
 }
