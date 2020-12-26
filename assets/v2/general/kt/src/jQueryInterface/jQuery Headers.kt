@@ -8,7 +8,7 @@ import org.w3c.dom.events.*
 
 typealias EventHandler = (Event?) -> Unit
 typealias JQueryMapper<To> = (index: Int, element: Element) -> To
-typealias JQueryIterator = JQueryMapper<Any?>
+typealias JQueryIterator = JQueryMapper<Unit>
 
 
 /**

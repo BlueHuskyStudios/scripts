@@ -1,7 +1,7 @@
 package org.bh.scripts.components
 
 import org.w3c.dom.Element
-import kotlin.dom.*
+import kotlinx.dom.*
 
 /**
  * @author Ben Leggiero
