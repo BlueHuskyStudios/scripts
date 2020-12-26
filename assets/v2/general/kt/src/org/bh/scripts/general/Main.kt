@@ -1,16 +1,16 @@
 package org.bh.scripts.general
 
 import jQueryInterface.*
+import kotlinx.browser.document
+import kotlinx.browser.window
 import org.bh.scripts.components.button.*
 import org.bh.scripts.components.sidebar.*
 import org.bh.scripts.components.themeSwatches.ThemeSwatchController
-import org.bh.scripts.components.themeSwatches.ThemeSwatchModel
 import org.bh.scripts.components.themeSwatches.ThemeSwatchViewWrapper
 import org.bh.scripts.components.themeSwatches.invoke
-import org.bh.scripts.general.serialization.LocalStorage
-import org.bh.scripts.general.serialization.invoke
+import org.bh.scripts.pageMutation.ContentReplacer
+import org.bh.scripts.pageMutation.ContentReplacers
 import org.bh.scripts.theming.ThemeController
-import kotlin.browser.document
 
 /**
  * @author Ben Leggiero
@@ -41,6 +41,7 @@ private object Setup {
     fun performCommonPageConnections() {
         connectAllSidebarsToSidebarButtons()
         connectAllThemeSwatches()
+        allowElementReplacers()
     }
 
 
@@ -74,6 +75,13 @@ private object Setup {
                         }
                         .filterNotNull()
         )
+    }
+
+
+    private fun allowElementReplacers() {
+        document.asDynamic().addContentReplacer = fun (selector: String, replacer: ContentReplacer) {
+            ContentReplacers.connectNewContentReplacer(selector= selector, replacer= replacer)
+        }
     }
 
 

@@ -5,9 +5,9 @@ if (typeof kotlin === 'undefined') {
   var $$importsForInline$$ = _.$$importsForInline$$ || (_.$$importsForInline$$ = {});
   var defineInlineFunction = Kotlin.defineInlineFunction;
   var Kind_INTERFACE = Kotlin.Kind.INTERFACE;
-  var addClass = Kotlin.kotlin.dom.addClass_hhb33f$;
-  var removeClass = Kotlin.kotlin.dom.removeClass_hhb33f$;
-  var hasClass = Kotlin.kotlin.dom.hasClass_46n0ku$;
+  var addClass = Kotlin.kotlinx.dom.addClass_hhb33f$;
+  var removeClass = Kotlin.kotlinx.dom.removeClass_hhb33f$;
+  var hasClass = Kotlin.kotlinx.dom.hasClass_46n0ku$;
   var PropertyMetadata = Kotlin.PropertyMetadata;
   var Unit = Kotlin.kotlin.Unit;
   var Kind_CLASS = Kotlin.Kind.CLASS;
@@ -66,9 +66,9 @@ if (typeof kotlin === 'undefined') {
   }
   Delegates$observable$ObjectLiteral.prototype = Object.create(ObservableProperty.prototype);
   Delegates$observable$ObjectLiteral.prototype.constructor = Delegates$observable$ObjectLiteral;
-  function Delegates$observable$ObjectLiteral(closure$onChange, initialValue_0) {
+  function Delegates$observable$ObjectLiteral(closure$onChange, initialValue) {
     this.closure$onChange = closure$onChange;
-    ObservableProperty.call(this, initialValue_0);
+    ObservableProperty.call(this, initialValue);
   }
   Delegates$observable$ObjectLiteral.prototype.afterChange_jxtfl0$ = function (property, oldValue, newValue) {
     this.closure$onChange(property, oldValue, newValue);
@@ -84,6 +84,7 @@ if (typeof kotlin === 'undefined') {
   }
   var ButtonController$model_metadata = new PropertyMetadata('model');
   Object.defineProperty(ButtonController.prototype, 'model', {
+    configurable: true,
     get: function () {
       return this.model_2jw593$_0.getValue_lrcp0p$(this, ButtonController$model_metadata);
     },
@@ -93,6 +94,7 @@ if (typeof kotlin === 'undefined') {
   });
   var ButtonController$view_metadata = new PropertyMetadata('view');
   Object.defineProperty(ButtonController.prototype, 'view', {
+    configurable: true,
     get: function () {
       return this.view_ko9l31$_0.getValue_lrcp0p$(this, ButtonController$view_metadata);
     },
@@ -245,9 +247,9 @@ if (typeof kotlin === 'undefined') {
   };
   Delegates$observable$ObjectLiteral_0.prototype = Object.create(ObservableProperty.prototype);
   Delegates$observable$ObjectLiteral_0.prototype.constructor = Delegates$observable$ObjectLiteral_0;
-  function Delegates$observable$ObjectLiteral_0(closure$onChange, initialValue_0) {
+  function Delegates$observable$ObjectLiteral_0(closure$onChange, initialValue) {
     this.closure$onChange = closure$onChange;
-    ObservableProperty.call(this, initialValue_0);
+    ObservableProperty.call(this, initialValue);
   }
   Delegates$observable$ObjectLiteral_0.prototype.afterChange_jxtfl0$ = function (property, oldValue, newValue) {
     this.closure$onChange(property, oldValue, newValue);
@@ -263,6 +265,7 @@ if (typeof kotlin === 'undefined') {
   }
   var SidebarController$model_metadata = new PropertyMetadata('model');
   Object.defineProperty(SidebarController.prototype, 'model', {
+    configurable: true,
     get: function () {
       return this.model_n7tbub$_0.getValue_lrcp0p$(this, SidebarController$model_metadata);
     },
@@ -272,6 +275,7 @@ if (typeof kotlin === 'undefined') {
   });
   var SidebarController$view_metadata = new PropertyMetadata('view');
   Object.defineProperty(SidebarController.prototype, 'view', {
+    configurable: true,
     get: function () {
       return this.view_qvqbrt$_0.getValue_lrcp0p$(this, SidebarController$view_metadata);
     },
@@ -313,6 +317,7 @@ if (typeof kotlin === 'undefined') {
     }
   };
   Object.defineProperty(SidebarController$Companion.prototype, 'anySidebar', {
+    configurable: true,
     get: function () {
       return this.anySidebar_lmurw4$_0.value;
     }
@@ -367,9 +372,9 @@ if (typeof kotlin === 'undefined') {
   }
   Delegates$observable$ObjectLiteral_1.prototype = Object.create(ObservableProperty.prototype);
   Delegates$observable$ObjectLiteral_1.prototype.constructor = Delegates$observable$ObjectLiteral_1;
-  function Delegates$observable$ObjectLiteral_1(closure$onChange, initialValue_0) {
+  function Delegates$observable$ObjectLiteral_1(closure$onChange, initialValue) {
     this.closure$onChange = closure$onChange;
-    ObservableProperty.call(this, initialValue_0);
+    ObservableProperty.call(this, initialValue);
   }
   Delegates$observable$ObjectLiteral_1.prototype.afterChange_jxtfl0$ = function (property, oldValue, newValue) {
     this.closure$onChange(property, oldValue, newValue);
@@ -384,6 +389,7 @@ if (typeof kotlin === 'undefined') {
   }
   var SidebarModel$isShown_metadata = new PropertyMetadata('isShown');
   Object.defineProperty(SidebarModel.prototype, 'isShown', {
+    configurable: true,
     get: function () {
       return this.isShown_vlygku$_0.getValue_lrcp0p$(this, SidebarModel$isShown_metadata);
     },
@@ -459,11 +465,13 @@ if (typeof kotlin === 'undefined') {
     }
   });
   Object.defineProperty(SidebarViewWrapper.prototype, 'scrimHtmlElement', {
+    configurable: true,
     get: function () {
       return this.scrimHtmlElementGetter_0();
     }
   });
   Object.defineProperty(SidebarViewWrapper.prototype, 'isShown', {
+    configurable: true,
     get: function () {
       return this.containerElement_0.hasClass(SidebarViewWrapper$Companion_getInstance().sidebarShownClassName);
     },
@@ -743,6 +751,7 @@ if (typeof kotlin === 'undefined') {
   Setup.prototype.performCommonPageConnections = function () {
     this.connectAllSidebarsToSidebarButtons_0();
     this.connectAllThemeSwatches_0();
+    this.allowElementReplacers_0();
   };
   function Setup$connectAllSidebarsToSidebarButtons$lambda(f, sidebarButtonElement) {
     var tmp$;
@@ -761,6 +770,12 @@ if (typeof kotlin === 'undefined') {
   }
   Setup.prototype.connectAllThemeSwatches_0 = function () {
     this.themeSwatchControllers_0.addAll_brywnq$(filterNotNull($(ThemeSwatchViewWrapper$Companion_getInstance().themeSwatchCssSelector).map(Setup$connectAllThemeSwatches$lambda)));
+  };
+  function Setup$allowElementReplacers$lambda(selector, replacer) {
+    ContentReplacers_getInstance().connectNewContentReplacer_tjix56$(selector, replacer);
+  }
+  Setup.prototype.allowElementReplacers_0 = function () {
+    document.addContentReplacer = Setup$allowElementReplacers$lambda;
   };
   Setup.prototype.reloadStates = function () {
     this.reloadTheme_0();
@@ -800,6 +815,7 @@ if (typeof kotlin === 'undefined') {
     window.localStorage.clear();
   };
   Object.defineProperty(LocalStorage.prototype, 'size', {
+    configurable: true,
     get: function () {
       return window.localStorage.length;
     }
@@ -993,6 +1009,73 @@ if (typeof kotlin === 'undefined') {
         throw _;
     }
   }
+  function ContentReplacers() {
+    ContentReplacers_instance = this;
+    this.contentReplacers_0 = LinkedHashMap_init();
+  }
+  ContentReplacers.prototype.connectNewContentReplacer_tjix56$ = function (selector, replacer) {
+    this.contentReplacers_0.put_xwzc9p$(selector, replacer);
+    this.runContentReplacers_0();
+  };
+  ContentReplacers.prototype.runContentReplacers_0 = function () {
+    var tmp$;
+    tmp$ = this.contentReplacers_0.entries.iterator();
+    while (tmp$.hasNext()) {
+      var element = tmp$.next();
+      run(element);
+    }
+  };
+  ContentReplacers.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'ContentReplacers',
+    interfaces: []
+  };
+  var ContentReplacers_instance = null;
+  function ContentReplacers_getInstance() {
+    if (ContentReplacers_instance === null) {
+      new ContentReplacers();
+    }return ContentReplacers_instance;
+  }
+  function run$lambda(closure$contentReplacerDataSourceDataKey, this$run, closure$userSelectedDataReplacement) {
+    return function (index, element) {
+      var tmp$, tmp$_0;
+      tmp$_0 = typeof (tmp$ = $(element).data(closure$contentReplacerDataSourceDataKey)) === 'string' ? tmp$ : null;
+      if (tmp$_0 == null) {
+        return;
+      }var contentReplacerDataSource = tmp$_0;
+      element.innerHTML = get_replacer(this$run)(contentReplacerDataSource, closure$userSelectedDataReplacement);
+      return Unit;
+    };
+  }
+  function run($receiver) {
+    var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3, tmp$_4;
+    var contentReplacerSelectorUi = $('[data-replaced-element-selector=' + '"' + $receiver.key + '"' + ']');
+    if (contentReplacerSelectorUi.length < 1) {
+      return;
+    }tmp$_0 = typeof (tmp$ = contentReplacerSelectorUi.data('content-replacer-data-source')) === 'string' ? tmp$ : null;
+    if (tmp$_0 == null) {
+      return;
+    }var contentReplacerDataSourceDataKey = tmp$_0;
+    tmp$_2 = typeof (tmp$_1 = contentReplacerSelectorUi.data('content-replacer-data-replacement')) === 'string' ? tmp$_1 : null;
+    if (tmp$_2 == null) {
+      return;
+    }var contentReplacerDataReplacementDataKey = tmp$_2;
+    var userSelectedContentReplacement = $('[data-pronoun-gender][selected]');
+    if (userSelectedContentReplacement.length !== 1) {
+      return;
+    }tmp$_4 = typeof (tmp$_3 = userSelectedContentReplacement.data(contentReplacerDataReplacementDataKey)) === 'string' ? tmp$_3 : null;
+    if (tmp$_4 == null) {
+      return;
+    }var userSelectedDataReplacement = tmp$_4;
+    var elementsWithContentToBeReplaced = $($receiver.key);
+    elementsWithContentToBeReplaced.each(run$lambda(contentReplacerDataSourceDataKey, $receiver, userSelectedDataReplacement));
+  }
+  function get_selector($receiver) {
+    return $receiver.key;
+  }
+  function get_replacer($receiver) {
+    return $receiver.value;
+  }
   function ThemeBrightnessTier(name, ordinal) {
     Enum.call(this);
     this.name$ = name;
@@ -1031,6 +1114,7 @@ if (typeof kotlin === 'undefined') {
     ThemeBrightnessTier$Companion_instance = this;
   }
   Object.defineProperty(ThemeBrightnessTier$Companion.prototype, 'default', {
+    configurable: true,
     get: defineInlineFunction('BHStudios General Scripts.org.bh.scripts.theming.ThemeBrightnessTier.Companion.get_default', wrapFunction(function () {
       var ThemeBrightnessTier = _.org.bh.scripts.theming.ThemeBrightnessTier;
       return function () {
@@ -1122,6 +1206,7 @@ if (typeof kotlin === 'undefined') {
     this.sheetSuffix = sheetSuffix.toLowerCase();
   }
   Object.defineProperty(ThemeColor.prototype, 'themeUrl', {
+    configurable: true,
     get: function () {
       return this.stylesheetUrl_0();
     }
@@ -1146,6 +1231,7 @@ if (typeof kotlin === 'undefined') {
     this.serialKey = 'color';
   }
   Object.defineProperty(ThemeColor$Companion.prototype, 'stylesheetUrlRegex_8be2vx$', {
+    configurable: true,
     get: function () {
       return this.stylesheetUrlRegex_8be2vx$_fkfzjy$_0.value;
     }
@@ -1202,26 +1288,26 @@ if (typeof kotlin === 'undefined') {
   ThemeController.prototype.reloadTheme = function () {
     var tmp$;
     if ((tmp$ = this.loadTheme()) != null) {
-      getCallableRef('setTheme', function ($receiver, model) {
-        return $receiver.setTheme_xxas9g$(model), Unit;
+      getCallableRef('setTheme', function ($receiver, p1) {
+        return $receiver.setTheme_xxas9g$(p1), Unit;
       }.bind(null, this))(tmp$);
     }};
   ThemeController.prototype.saveTheme_xxas9g$ = function (model) {
     var tmp$, tmp$_0;
-    var serialModel = (tmp$_0 = (tmp$ = this.loadTheme()) != null ? getCallableRef('fillingInMissingData', function ($receiver, other) {
-      return fillingInMissingData($receiver, other);
+    var serialModel = (tmp$_0 = (tmp$ = this.loadTheme()) != null ? getCallableRef('fillingInMissingData', function ($receiver, p1) {
+      return fillingInMissingData($receiver, p1);
     }.bind(null, model))(tmp$) : null) != null ? tmp$_0 : model;
     get_blueHusky(LocalStorage_getInstance()).set_jyasbz$(this.themeKey, serialModel.serialValue);
   };
   ThemeController.prototype.setTheme_xxas9g$ = function (model) {
     var tmp$, tmp$_0;
     if ((tmp$ = model.color) != null) {
-      getCallableRef('setColor', function ($receiver, newColor) {
-        return $receiver.setColor_y2sk0q$(newColor), Unit;
+      getCallableRef('setColor', function ($receiver, p1) {
+        return $receiver.setColor_y2sk0q$(p1), Unit;
       }.bind(null, this))(tmp$);
     }if ((tmp$_0 = model.brightnessTier) != null) {
-      getCallableRef('setBrightness', function ($receiver, newBrightness) {
-        return $receiver.setBrightness_9hws1c$(newBrightness), Unit;
+      getCallableRef('setBrightness', function ($receiver, p1) {
+        return $receiver.setBrightness_9hws1c$(p1), Unit;
       }.bind(null, this))(tmp$_0);
     }this.saveTheme_xxas9g$(model);
   };
@@ -1254,6 +1340,7 @@ if (typeof kotlin === 'undefined') {
     this.brightnessTier = brightnessTier;
   }
   Object.defineProperty(ThemeModel.prototype, 'serialValue', {
+    configurable: true,
     get: function () {
       var tmp$, tmp$_0, tmp$_1;
       tmp$_0 = to(ThemeColor$Companion_getInstance().serialKey, (tmp$ = this.color) != null ? get_serialValue_1(tmp$) : null);
@@ -1420,6 +1507,10 @@ if (typeof kotlin === 'undefined') {
   package$utilities.get_9wl75a$ = get_0;
   package$utilities.get_groups_tgewol$ = get_groups;
   package$utilities.tryOrNull_klfg04$ = tryOrNull;
+  var package$pageMutation = package$scripts.pageMutation || (package$scripts.pageMutation = {});
+  Object.defineProperty(package$pageMutation, 'ContentReplacers', {
+    get: ContentReplacers_getInstance
+  });
   Object.defineProperty(ThemeBrightnessTier, 'black', {
     get: ThemeBrightnessTier$black_getInstance
   });
