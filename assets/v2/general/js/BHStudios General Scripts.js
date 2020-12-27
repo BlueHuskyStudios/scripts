@@ -27,6 +27,7 @@ if (typeof kotlin === 'undefined') {
   var startsWith = Kotlin.kotlin.text.startsWith_7epoxm$;
   var toChar = Kotlin.toChar;
   var Throwable = Error;
+  var throwCCE = Kotlin.throwCCE;
   var capitalize = Kotlin.kotlin.text.capitalize_pdl1vz$;
   var decapitalize = Kotlin.kotlin.text.decapitalize_pdl1vz$;
   var wrapFunction = Kotlin.wrapFunction;
@@ -1032,7 +1033,7 @@ if (typeof kotlin === 'undefined') {
     tmp$ = this.contentReplacers_0.entries.iterator();
     while (tmp$.hasNext()) {
       var element = tmp$.next();
-      run(element);
+      connectAndRun(element);
     }
   };
   ContentReplacers.$metadata$ = {
@@ -1045,6 +1046,46 @@ if (typeof kotlin === 'undefined') {
     if (ContentReplacers_instance === null) {
       new ContentReplacers();
     }return ContentReplacers_instance;
+  }
+  function connectAndRun($receiver) {
+    var tmp$, tmp$_0, tmp$_1, tmp$_2;
+    var contentReplacerSelectorUi = $('[data-replaced-element-selector=' + '"' + $receiver.key + '"' + ']');
+    if (contentReplacerSelectorUi.length < 1) {
+      return;
+    }tmp$_0 = typeof (tmp$ = contentReplacerSelectorUi.data('content-replacer-data-source')) === 'string' ? tmp$ : null;
+    if (tmp$_0 == null) {
+      return;
+    }var contentReplacerDataSourceDataKey = tmp$_0;
+    tmp$_2 = typeof (tmp$_1 = contentReplacerSelectorUi.data('content-replacer-data-replacement')) === 'string' ? tmp$_1 : null;
+    if (tmp$_2 == null) {
+      return;
+    }var contentReplacerDataReplacementDataKey = tmp$_2;
+    var contentReplacerDataReplacementSelector = '[' + contentReplacerDataReplacementDataKey + ']';
+    connectButtons($receiver, contentReplacerDataSourceDataKey, contentReplacerDataReplacementSelector, contentReplacerDataReplacementDataKey);
+    run($receiver, contentReplacerDataSourceDataKey, contentReplacerDataReplacementSelector, contentReplacerDataReplacementDataKey);
+  }
+  function connectButtons$lambda(closure$contentReplacerDataReplacementSelector, this$connectButtons, closure$contentReplacerDataSourceDataKey, closure$contentReplacerDataReplacementDataKey) {
+    return function (it) {
+      var tmp$, tmp$_0;
+      tmp$_0 = Kotlin.isType(tmp$ = it.currentTarget, Element) ? tmp$ : null;
+      if (tmp$_0 == null) {
+        return;
+      }var currentTarget = tmp$_0;
+      clearSelection(this$connectButtons, closure$contentReplacerDataReplacementSelector);
+      select(this$connectButtons, currentTarget);
+      run(this$connectButtons, closure$contentReplacerDataSourceDataKey, closure$contentReplacerDataReplacementSelector, closure$contentReplacerDataReplacementDataKey);
+      return Unit;
+    };
+  }
+  function connectButtons($receiver, contentReplacerDataSourceDataKey, contentReplacerDataReplacementSelector, contentReplacerDataReplacementDataKey) {
+    $(contentReplacerDataReplacementSelector).click(connectButtons$lambda(contentReplacerDataReplacementSelector, $receiver, contentReplacerDataSourceDataKey, contentReplacerDataReplacementDataKey));
+  }
+  function clearSelection($receiver, contentReplacerDataReplacementSelector) {
+    var tmp$;
+    $(contentReplacerDataReplacementSelector).attr('selected', (tmp$ = null) == null || typeof tmp$ === 'string' ? tmp$ : throwCCE());
+  }
+  function select($receiver, element) {
+    $(element).select();
   }
   function run$lambda(closure$contentReplacerDataSourceDataKey, this$run, closure$userSelectedDataReplacement) {
     return function (f, element) {
@@ -1084,30 +1125,19 @@ if (typeof kotlin === 'undefined') {
       return Unit;
     };
   }
-  function run($receiver) {
-    var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3, tmp$_4;
-    var contentReplacerSelectorUi = $('[data-replaced-element-selector=' + '"' + $receiver.key + '"' + ']');
-    if (contentReplacerSelectorUi.length < 1) {
-      return;
-    }tmp$_0 = typeof (tmp$ = contentReplacerSelectorUi.data('content-replacer-data-source')) === 'string' ? tmp$ : null;
-    if (tmp$_0 == null) {
-      return;
-    }var contentReplacerDataSourceDataKey = tmp$_0;
-    tmp$_2 = typeof (tmp$_1 = contentReplacerSelectorUi.data('content-replacer-data-replacement')) === 'string' ? tmp$_1 : null;
-    if (tmp$_2 == null) {
-      return;
-    }var contentReplacerDataReplacementDataKey = tmp$_2;
-    var userSelectedContentReplacement = $('[data-pronoun-gender][selected]');
+  function run($receiver, contentReplacerDataSourceDataKey, contentReplacerDataReplacementSelector, contentReplacerDataReplacementDataKey) {
+    var tmp$, tmp$_0;
+    var userSelectedContentReplacement = $(contentReplacerDataReplacementSelector + '[selected]');
     if (userSelectedContentReplacement.length !== 1) {
       return;
-    }tmp$_4 = typeof (tmp$_3 = userSelectedContentReplacement.data(contentReplacerDataReplacementDataKey)) === 'string' ? tmp$_3 : null;
-    if (tmp$_4 == null) {
+    }tmp$_0 = typeof (tmp$ = userSelectedContentReplacement.data(contentReplacerDataReplacementDataKey)) === 'string' ? tmp$ : null;
+    if (tmp$_0 == null) {
       return;
-    }var userSelectedDataReplacement = tmp$_4;
+    }var userSelectedDataReplacement = tmp$_0;
     var elementsWithContentToBeReplaced = $($receiver.key);
     elementsWithContentToBeReplaced.each(run$lambda(contentReplacerDataSourceDataKey, $receiver, userSelectedDataReplacement));
   }
-  function get_selector($receiver) {
+  function get_selectorForAllElementsWithContentToBeReplaced($receiver) {
     return $receiver.key;
   }
   function get_replacer($receiver) {
