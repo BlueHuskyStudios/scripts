@@ -1060,7 +1060,7 @@ if (typeof kotlin === 'undefined') {
     if (tmp$_2 == null) {
       return;
     }var contentReplacerDataReplacementDataKey = tmp$_2;
-    var contentReplacerDataReplacementSelector = '[' + contentReplacerDataReplacementDataKey + ']';
+    var contentReplacerDataReplacementSelector = '[data-' + contentReplacerDataReplacementDataKey + ']';
     connectButtons($receiver, contentReplacerDataSourceDataKey, contentReplacerDataReplacementSelector, contentReplacerDataReplacementDataKey);
     run($receiver, contentReplacerDataSourceDataKey, contentReplacerDataReplacementSelector, contentReplacerDataReplacementDataKey);
   }
@@ -1085,7 +1085,7 @@ if (typeof kotlin === 'undefined') {
     $(contentReplacerDataReplacementSelector).attr('selected', (tmp$ = null) == null || typeof tmp$ === 'string' ? tmp$ : throwCCE());
   }
   function select($receiver, element) {
-    $(element).select();
+    $(element).attr('selected', true);
   }
   function run$lambda(closure$contentReplacerDataSourceDataKey, this$run, closure$userSelectedDataReplacement) {
     return function (f, element) {
@@ -1096,8 +1096,8 @@ if (typeof kotlin === 'undefined') {
       }var contentReplacerDataSource = tmp$_0;
       var result = get_replacer(this$run)(contentReplacerDataSource, closure$userSelectedDataReplacement);
       var newTextContent;
-      var jsonResult = Kotlin.isType(tmp$_1 = result, Object) ? tmp$_1 : null;
-      if (jsonResult != null) {
+      if (typeof result === 'object') {
+        var jsonResult = Kotlin.isType(tmp$_1 = result, Object) ? tmp$_1 : throwCCE();
         tmp$_3 = typeof (tmp$_2 = jsonResult['text']) === 'string' ? tmp$_2 : null;
         if (tmp$_3 == null) {
           return;
@@ -1106,7 +1106,7 @@ if (typeof kotlin === 'undefined') {
         if (originalTextContent != null) {
           var maintainOriginalCapitalization = (tmp$_5 = typeof (tmp$_4 = jsonResult['maintainOriginalCapitalization']) === 'boolean' ? tmp$_4 : null) != null ? tmp$_5 : false;
           if (maintainOriginalCapitalization) {
-            if (!get_isCapitalized(originalTextContent)) {
+            if (get_isCapitalized(originalTextContent)) {
               tmp$_6 = capitalize(rawNewTextContent);
             } else {
               tmp$_6 = decapitalize(rawNewTextContent);
