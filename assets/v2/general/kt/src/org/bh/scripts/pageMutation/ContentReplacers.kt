@@ -4,6 +4,7 @@ import jQueryInterface.jq
 import org.bh.scripts.general.utilities.isCapitalized
 import org.w3c.dom.Element
 import kotlin.js.Json
+import kotlin.reflect.typeOf
 
 
 object ContentReplacers {
@@ -31,7 +32,7 @@ private fun ContentReplacerMapElement.connectAndRun() {
 
     val contentReplacerDataSourceDataKey = contentReplacerSelectorUi.data("content-replacer-data-source") as? String ?: return
     val contentReplacerDataReplacementDataKey = contentReplacerSelectorUi.data("content-replacer-data-replacement") as? String ?: return
-    val contentReplacerDataReplacementSelector = "[$contentReplacerDataReplacementDataKey]"
+    val contentReplacerDataReplacementSelector = "[data-$contentReplacerDataReplacementDataKey]"
 
     connectButtons(contentReplacerDataSourceDataKey= contentReplacerDataSourceDataKey,
         contentReplacerDataReplacementSelector= contentReplacerDataReplacementSelector,
@@ -63,7 +64,7 @@ private fun ContentReplacerMapElement.clearSelection(contentReplacerDataReplacem
 
 
 private fun ContentReplacerMapElement.select(element: Element) {
-    jq(element).select()
+    jq(element).attr("selected", true)
 }
 
 
@@ -81,8 +82,8 @@ private fun ContentReplacerMapElement.run(contentReplacerDataSourceDataKey: Stri
         val result = replacer(contentReplacerDataSource, userSelectedDataReplacement)
         val newTextContent: String
 
-        val jsonResult = result as? Json
-        if (null != jsonResult) {
+        if (jsTypeOf(result) === "object") {
+            val jsonResult = result as Json
 
             val rawNewTextContent = jsonResult["text"] as? String ?: return@each
             val originalTextContent = element.textContent
@@ -92,7 +93,7 @@ private fun ContentReplacerMapElement.run(contentReplacerDataSourceDataKey: Stri
 
                 newTextContent =
                     if (maintainOriginalCapitalization) {
-                        if (!originalTextContent.isCapitalized) {
+                        if (originalTextContent.isCapitalized) {
                             rawNewTextContent.capitalize()
                         } else {
                             rawNewTextContent.decapitalize()
