@@ -1,6 +1,8 @@
 package org.bh.scripts.pageMutation
 
 import jQueryInterface.jq
+import org.bh.scripts.general.utilities.isCapitalized
+import kotlin.js.Json
 
 
 object ContentReplacers {
@@ -35,9 +37,40 @@ private fun ContentReplacerMapElement.run() {
     val userSelectedDataReplacement = userSelectedContentReplacement.data(contentReplacerDataReplacementDataKey) as? String ?: return
 
     val elementsWithContentToBeReplaced = jq(selector)
-    elementsWithContentToBeReplaced.each { index, element ->
+    elementsWithContentToBeReplaced.each { _, element ->
         val contentReplacerDataSource = jq(element).data(contentReplacerDataSourceDataKey) as? String ?: return@each
-        element.innerHTML = replacer(contentReplacerDataSource, userSelectedDataReplacement)
+        val result = replacer(contentReplacerDataSource, userSelectedDataReplacement)
+        val newTextContent: String
+
+        val jsonResult = result as? Json
+        if (null != jsonResult) {
+
+            val rawNewTextContent = jsonResult["text"] as? String ?: return@each
+            val originalTextContent = element.textContent
+
+            if (null != originalTextContent) {
+                val maintainOriginalCapitalization = jsonResult["maintainOriginalCapitalization"] as? Boolean ?: false
+
+                newTextContent =
+                    if (maintainOriginalCapitalization) {
+                        if (!originalTextContent.isCapitalized) {
+                            rawNewTextContent.capitalize()
+                        } else {
+                            rawNewTextContent.decapitalize()
+                        }
+                    } else {
+                        rawNewTextContent
+                    }
+            } else {
+                newTextContent = rawNewTextContent
+            }
+        }
+        else {
+            newTextContent = result as? String ?: "$result"
+        }
+
+
+        element.textContent = newTextContent
     }
 }
 
@@ -48,4 +81,4 @@ private inline val ContentReplacerMapElement.replacer get() = value
 
 
 private typealias ContentReplacerMapElement = Map.Entry<String, ContentReplacer>
-typealias ContentReplacer = (dataSource: String, dataReplacement: String) -> String
+typealias ContentReplacer = (dataSource: String, dataReplacement: String) -> Any

@@ -25,7 +25,10 @@ if (typeof kotlin === 'undefined') {
   var AbstractMutableCollection = Kotlin.kotlin.collections.AbstractMutableCollection;
   var IllegalStateException_init = Kotlin.kotlin.IllegalStateException_init_pdl1vj$;
   var startsWith = Kotlin.kotlin.text.startsWith_7epoxm$;
+  var toChar = Kotlin.toChar;
   var Throwable = Error;
+  var capitalize = Kotlin.kotlin.text.capitalize_pdl1vz$;
+  var decapitalize = Kotlin.kotlin.text.decapitalize_pdl1vz$;
   var wrapFunction = Kotlin.wrapFunction;
   var Enum = Kotlin.kotlin.Enum;
   var throwISE = Kotlin.throwISE;
@@ -772,7 +775,7 @@ if (typeof kotlin === 'undefined') {
     this.themeSwatchControllers_0.addAll_brywnq$(filterNotNull($(ThemeSwatchViewWrapper$Companion_getInstance().themeSwatchCssSelector).map(Setup$connectAllThemeSwatches$lambda)));
   };
   function Setup$allowElementReplacers$lambda(selector, replacer) {
-    ContentReplacers_getInstance().connectNewContentReplacer_tjix56$(selector, replacer);
+    ContentReplacers_getInstance().connectNewContentReplacer_v0uu45$(selector, replacer);
   }
   Setup.prototype.allowElementReplacers_0 = function () {
     document.addContentReplacer = Setup$allowElementReplacers$lambda;
@@ -999,6 +1002,13 @@ if (typeof kotlin === 'undefined') {
   var get_groups = defineInlineFunction('BHStudios General Scripts.org.bh.scripts.general.utilities.get_groups_tgewol$', function ($receiver) {
     return $receiver.groups;
   });
+  function get_isCapitalized($receiver) {
+    var tmp$ = !($receiver.length === 0);
+    if (tmp$) {
+      var $receiver_0 = $receiver.charCodeAt(0);
+      tmp$ = toChar(String.fromCharCode($receiver_0 | 0).toUpperCase().charCodeAt(0)) === $receiver.charCodeAt(0);
+    }return tmp$;
+  }
   function tryOrNull(danger) {
     try {
       return danger();
@@ -1013,7 +1023,7 @@ if (typeof kotlin === 'undefined') {
     ContentReplacers_instance = this;
     this.contentReplacers_0 = LinkedHashMap_init();
   }
-  ContentReplacers.prototype.connectNewContentReplacer_tjix56$ = function (selector, replacer) {
+  ContentReplacers.prototype.connectNewContentReplacer_v0uu45$ = function (selector, replacer) {
     this.contentReplacers_0.put_xwzc9p$(selector, replacer);
     this.runContentReplacers_0();
   };
@@ -1037,13 +1047,40 @@ if (typeof kotlin === 'undefined') {
     }return ContentReplacers_instance;
   }
   function run$lambda(closure$contentReplacerDataSourceDataKey, this$run, closure$userSelectedDataReplacement) {
-    return function (index, element) {
-      var tmp$, tmp$_0;
+    return function (f, element) {
+      var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3, tmp$_4, tmp$_5, tmp$_6, tmp$_7, tmp$_8;
       tmp$_0 = typeof (tmp$ = $(element).data(closure$contentReplacerDataSourceDataKey)) === 'string' ? tmp$ : null;
       if (tmp$_0 == null) {
         return;
       }var contentReplacerDataSource = tmp$_0;
-      element.innerHTML = get_replacer(this$run)(contentReplacerDataSource, closure$userSelectedDataReplacement);
+      var result = get_replacer(this$run)(contentReplacerDataSource, closure$userSelectedDataReplacement);
+      var newTextContent;
+      var jsonResult = Kotlin.isType(tmp$_1 = result, Object) ? tmp$_1 : null;
+      if (jsonResult != null) {
+        tmp$_3 = typeof (tmp$_2 = jsonResult['text']) === 'string' ? tmp$_2 : null;
+        if (tmp$_3 == null) {
+          return;
+        }var rawNewTextContent = tmp$_3;
+        var originalTextContent = element.textContent;
+        if (originalTextContent != null) {
+          var maintainOriginalCapitalization = (tmp$_5 = typeof (tmp$_4 = jsonResult['maintainOriginalCapitalization']) === 'boolean' ? tmp$_4 : null) != null ? tmp$_5 : false;
+          if (maintainOriginalCapitalization) {
+            if (!get_isCapitalized(originalTextContent)) {
+              tmp$_6 = capitalize(rawNewTextContent);
+            } else {
+              tmp$_6 = decapitalize(rawNewTextContent);
+            }
+          } else {
+            tmp$_6 = rawNewTextContent;
+          }
+          newTextContent = tmp$_6;
+        } else {
+          newTextContent = rawNewTextContent;
+        }
+      } else {
+        newTextContent = (tmp$_8 = typeof (tmp$_7 = result) === 'string' ? tmp$_7 : null) != null ? tmp$_8 : result.toString();
+      }
+      element.textContent = newTextContent;
       return Unit;
     };
   }
@@ -1506,6 +1543,7 @@ if (typeof kotlin === 'undefined') {
   var package$utilities = package$general.utilities || (package$general.utilities = {});
   package$utilities.get_9wl75a$ = get_0;
   package$utilities.get_groups_tgewol$ = get_groups;
+  package$utilities.get_isCapitalized_pdl1vz$ = get_isCapitalized;
   package$utilities.tryOrNull_klfg04$ = tryOrNull;
   var package$pageMutation = package$scripts.pageMutation || (package$scripts.pageMutation = {});
   Object.defineProperty(package$pageMutation, 'ContentReplacers', {
