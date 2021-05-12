@@ -11,6 +11,9 @@ import org.bh.scripts.components.themeSwatches.invoke
 import org.bh.scripts.pageMutation.ContentReplacer
 import org.bh.scripts.pageMutation.ContentReplacers
 import org.bh.scripts.theming.ThemeController
+import org.w3c.dom.HTMLElement
+import org.w3c.dom.HTMLInputElement
+import org.w3c.dom.get
 
 /**
  * @author Ben Leggiero
@@ -42,6 +45,7 @@ private object Setup {
         connectAllSidebarsToSidebarButtons()
         connectAllThemeSwatches()
         allowElementReplacers()
+        connectInputBasedContentTransformers()
     }
 
 
@@ -81,6 +85,17 @@ private object Setup {
     private fun allowElementReplacers() {
         document.asDynamic().addContentReplacer = fun (selector: String, replacer: ContentReplacer) {
             ContentReplacers.connectNewContentReplacer(selector= selector, replacer= replacer)
+        }
+    }
+
+
+    private fun connectInputBasedContentTransformers() {
+        jq("[data-apply-class-to-root-when-checked]").change { event ->
+            (event?.currentTarget as? HTMLInputElement)?.let { element ->
+                element.dataset["apply-class-to-root-when-checked"]?.let { newRootClass ->
+                    jq(":root").toggleClass(newRootClass, element.checked)
+                }
+            }
         }
     }
 

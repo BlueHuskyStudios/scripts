@@ -20,6 +20,17 @@ external class JQuery {
     fun addClass(className: String): JQuery
     fun addClass(f: (Int, String) -> String): JQuery
 
+    fun hasClass(className: String): Boolean
+    fun removeClass(className: String): JQuery
+
+    fun toggleClass(className: String): JQuery
+    fun toggleClass(className: String, state: Boolean): JQuery
+    fun toggleClass(className: Array<String>): JQuery
+    fun toggleClass(className: Array<String>, state: Boolean): JQuery
+    fun toggleClass(function: (index: Int, className: String, state: Boolean) -> String): JQuery
+    fun toggleClass(function: (index: Int, className: String, state: Boolean) -> String, state: Boolean): JQuery
+
+
     fun attr(attrName: String): Any?
     fun attr(attrName: String, value: String?): JQuery
     fun attr(attrName: String, value: Double?): JQuery
@@ -43,8 +54,6 @@ external class JQuery {
     fun html(f: (Int, String) -> String): JQuery
 
 
-    fun hasClass(className: String): Boolean
-    fun removeClass(className: String): JQuery
     fun height(): Number
     fun width(): Number
 
