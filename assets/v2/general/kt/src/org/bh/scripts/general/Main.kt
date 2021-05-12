@@ -92,7 +92,7 @@ private object Setup {
     private fun connectInputBasedContentTransformers() {
         jq("[data-apply-class-to-root-when-checked]").change { event ->
             (event?.currentTarget as? HTMLInputElement)?.let { element ->
-                element.dataset["apply-class-to-root-when-checked"]?.let { newRootClass ->
+                element.dataset["applyClassToRootWhenChecked"]?.let { newRootClass ->
                     jq(":root").toggleClass(newRootClass, element.checked)
                 }
             }
