@@ -756,6 +756,7 @@ if (typeof kotlin === 'undefined') {
     this.connectAllSidebarsToSidebarButtons_0();
     this.connectAllThemeSwatches_0();
     this.allowElementReplacers_0();
+    this.connectInputBasedContentTransformers_0();
   };
   function Setup$connectAllSidebarsToSidebarButtons$lambda(f, sidebarButtonElement) {
     var tmp$;
@@ -780,6 +781,17 @@ if (typeof kotlin === 'undefined') {
   }
   Setup.prototype.allowElementReplacers_0 = function () {
     document.addContentReplacer = Setup$allowElementReplacers$lambda;
+  };
+  function Setup$connectInputBasedContentTransformers$lambda(event) {
+    var tmp$, tmp$_0;
+    if ((tmp$_0 = Kotlin.isType(tmp$ = event != null ? event.currentTarget : null, HTMLInputElement) ? tmp$ : null) != null) {
+      var tmp$_1;
+      if ((tmp$_1 = tmp$_0.dataset['apply-class-to-root-when-checked']) != null) {
+        $(':root').toggleClass(tmp$_1, tmp$_0.checked);
+      }}return Unit;
+  }
+  Setup.prototype.connectInputBasedContentTransformers_0 = function () {
+    $('[data-apply-class-to-root-when-checked]').change(Setup$connectInputBasedContentTransformers$lambda);
   };
   Setup.prototype.reloadStates = function () {
     this.reloadTheme_0();
