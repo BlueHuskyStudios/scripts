@@ -786,7 +786,7 @@ if (typeof kotlin === 'undefined') {
     var tmp$, tmp$_0;
     if ((tmp$_0 = Kotlin.isType(tmp$ = event != null ? event.currentTarget : null, HTMLInputElement) ? tmp$ : null) != null) {
       var tmp$_1;
-      if ((tmp$_1 = tmp$_0.dataset['apply-class-to-root-when-checked']) != null) {
+      if ((tmp$_1 = tmp$_0.dataset['applyClassToRootWhenChecked']) != null) {
         $(':root').toggleClass(tmp$_1, tmp$_0.checked);
       }}return Unit;
   }
