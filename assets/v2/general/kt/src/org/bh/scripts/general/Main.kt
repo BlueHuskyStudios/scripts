@@ -17,6 +17,8 @@ import org.w3c.dom.*
 
 
 fun main(args: Array<String>) {
+    Setup.downloadJQuery()
+
     jq(document).ready {
         Setup.performCommonPageConnections()
         Setup.reloadStates()
@@ -36,7 +38,6 @@ private object Setup {
     // MARK: - Connect
 
     fun performCommonPageConnections() {
-        downloadJQuery()
         connectAllSidebarsToSidebarButtons()
         connectAllThemeSwatches()
         allowElementReplacers()
@@ -44,7 +45,7 @@ private object Setup {
     }
 
 
-    private fun downloadJQuery() {
+    fun downloadJQuery() {
         if (js("jQuery") === undefined) {
             val script = document.createElement("script") as? HTMLScriptElement ?: return console.error("Could not create script element")
             script.src = "//code.jquery.com/jquery-3.x-git.slim.min.js"
