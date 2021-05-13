@@ -19,11 +19,11 @@ import org.w3c.dom.*
 fun main(args: Array<String>) {
     Setup.downloadJQuery()
 
-    jq(document).ready {
+    document.addEventListener("DOMContentLoaded", {
         Setup.performCommonPageConnections()
         Setup.reloadStates()
         Setup.showJsOnlyElements()
-    }
+    })
 }
 
 

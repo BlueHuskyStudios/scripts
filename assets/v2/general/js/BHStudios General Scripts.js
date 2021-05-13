@@ -746,7 +746,7 @@ if (typeof kotlin === 'undefined') {
   }
   function main(args) {
     Setup_getInstance().downloadJQuery();
-    $(document).ready(main$lambda);
+    document.addEventListener('DOMContentLoaded', main$lambda);
   }
   function Setup() {
     Setup_instance = this;
