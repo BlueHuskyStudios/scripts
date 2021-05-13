@@ -46,7 +46,7 @@ private object Setup {
 
 
     fun downloadJQuery() {
-        if (js("jQuery") === undefined) {
+        if (js("typeof(jQuery)") === "undefined") {
             val script = document.createElement("script") as? HTMLScriptElement ?: return console.error("Could not create script element")
             script.src = "//code.jquery.com/jquery-3.x-git.slim.min.js"
             script.type = "text/javascript"
