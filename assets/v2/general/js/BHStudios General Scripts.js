@@ -761,7 +761,7 @@ if (typeof kotlin === 'undefined') {
   };
   Setup.prototype.downloadJQuery = function () {
     var tmp$, tmp$_0, tmp$_1, tmp$_2;
-    if (jQuery === undefined) {
+    if (typeof jQuery === 'undefined') {
       tmp$_0 = Kotlin.isType(tmp$ = document.createElement('script'), HTMLScriptElement) ? tmp$ : null;
       if (tmp$_0 == null) {
         return console.error('Could not create script element');
