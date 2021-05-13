@@ -1,19 +1,13 @@
 package org.bh.scripts.general
 
 import jQueryInterface.*
-import kotlinx.browser.document
-import kotlinx.browser.window
+import kotlinx.browser.*
 import org.bh.scripts.components.button.*
 import org.bh.scripts.components.sidebar.*
-import org.bh.scripts.components.themeSwatches.ThemeSwatchController
-import org.bh.scripts.components.themeSwatches.ThemeSwatchViewWrapper
-import org.bh.scripts.components.themeSwatches.invoke
-import org.bh.scripts.pageMutation.ContentReplacer
-import org.bh.scripts.pageMutation.ContentReplacers
-import org.bh.scripts.theming.ThemeController
-import org.w3c.dom.HTMLElement
-import org.w3c.dom.HTMLInputElement
-import org.w3c.dom.get
+import org.bh.scripts.components.themeSwatches.*
+import org.bh.scripts.pageMutation.*
+import org.bh.scripts.theming.*
+import org.w3c.dom.*
 
 /**
  * @author Ben Leggiero
@@ -42,10 +36,21 @@ private object Setup {
     // MARK: - Connect
 
     fun performCommonPageConnections() {
+        downloadJQuery()
         connectAllSidebarsToSidebarButtons()
         connectAllThemeSwatches()
         allowElementReplacers()
         connectInputBasedContentTransformers()
+    }
+
+
+    private fun downloadJQuery() {
+        if (js("jQuery") === undefined) {
+            val script = document.createElement("script") as? HTMLScriptElement ?: return console.error("Could not create script element")
+            script.src = "//code.jquery.com/jquery-3.x-git.slim.min.js"
+            script.type = "text/javascript"
+            document.getElementsByTagName("head")[0]?.appendChild(script) ?: console.error("Could not find head element")
+        }
     }
 
 
