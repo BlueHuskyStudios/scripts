@@ -745,7 +745,8 @@ if (typeof kotlin === 'undefined') {
     return Unit;
   }
   function main(args) {
-    $(document).ready(main$lambda);
+    Setup_getInstance().downloadJQuery();
+    document.addEventListener('DOMContentLoaded', main$lambda);
   }
   function Setup() {
     Setup_instance = this;
@@ -753,13 +754,12 @@ if (typeof kotlin === 'undefined') {
     this.themeSwatchControllers_0 = ArrayList_init();
   }
   Setup.prototype.performCommonPageConnections = function () {
-    this.downloadJQuery_0();
     this.connectAllSidebarsToSidebarButtons_0();
     this.connectAllThemeSwatches_0();
     this.allowElementReplacers_0();
     this.connectInputBasedContentTransformers_0();
   };
-  Setup.prototype.downloadJQuery_0 = function () {
+  Setup.prototype.downloadJQuery = function () {
     var tmp$, tmp$_0, tmp$_1, tmp$_2;
     if (jQuery === undefined) {
       tmp$_0 = Kotlin.isType(tmp$ = document.createElement('script'), HTMLScriptElement) ? tmp$ : null;
