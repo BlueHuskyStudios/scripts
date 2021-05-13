@@ -753,11 +753,23 @@ if (typeof kotlin === 'undefined') {
     this.themeSwatchControllers_0 = ArrayList_init();
   }
   Setup.prototype.performCommonPageConnections = function () {
+    this.downloadJQuery_0();
     this.connectAllSidebarsToSidebarButtons_0();
     this.connectAllThemeSwatches_0();
     this.allowElementReplacers_0();
     this.connectInputBasedContentTransformers_0();
   };
+  Setup.prototype.downloadJQuery_0 = function () {
+    var tmp$, tmp$_0, tmp$_1, tmp$_2;
+    if (jQuery === undefined) {
+      tmp$_0 = Kotlin.isType(tmp$ = document.createElement('script'), HTMLScriptElement) ? tmp$ : null;
+      if (tmp$_0 == null) {
+        return console.error('Could not create script element');
+      }var script = tmp$_0;
+      script.src = '//code.jquery.com/jquery-3.x-git.slim.min.js';
+      script.type = 'text/javascript';
+      (tmp$_2 = (tmp$_1 = document.getElementsByTagName('head')[0]) != null ? tmp$_1.appendChild(script) : null) != null ? tmp$_2 : (console.error('Could not find head element'), Unit);
+    }};
   function Setup$connectAllSidebarsToSidebarButtons$lambda(f, sidebarButtonElement) {
     var tmp$;
     var specifiedSidebarId = (tmp$ = sidebarButtonElement.getAttributeNode('for')) != null ? tmp$.value : null;
