@@ -1,13 +1,22 @@
 package org.bh.scripts.general
 
-import jQueryInterface.*
-import kotlinx.browser.*
-import org.bh.scripts.components.button.*
-import org.bh.scripts.components.sidebar.*
-import org.bh.scripts.components.themeSwatches.*
-import org.bh.scripts.pageMutation.*
-import org.bh.scripts.theming.*
-import org.w3c.dom.*
+import jQueryInterface.jq
+import kotlinx.browser.document
+import org.bh.scripts.components.button.ButtonController
+import org.bh.scripts.components.sidebar.SidebarButtonController
+import org.bh.scripts.components.sidebar.SidebarController
+import org.bh.scripts.components.sidebar.SidebarViewWrapper
+import org.bh.scripts.components.themeSwatches.ThemeSwatchController
+import org.bh.scripts.components.themeSwatches.ThemeSwatchViewWrapper
+import org.bh.scripts.components.themeSwatches.invoke
+import org.bh.scripts.events.deselect
+import org.bh.scripts.events.setupDeselectEvent
+import org.bh.scripts.pageMutation.ContentReplacer
+import org.bh.scripts.pageMutation.ContentReplacers
+import org.bh.scripts.theming.ThemeController
+import org.w3c.dom.HTMLInputElement
+import org.w3c.dom.HTMLScriptElement
+import org.w3c.dom.get
 
 /**
  * @author Ben Leggiero
@@ -20,6 +29,7 @@ fun main(args: Array<String>) {
     Setup.downloadJQuery()
 
     document.addEventListener("DOMContentLoaded", {
+        Setup.setupCustomEvents()
         Setup.performCommonPageConnections()
         Setup.reloadStates()
         Setup.showJsOnlyElements()
@@ -32,6 +42,14 @@ private object Setup {
 
     private val sidebarButtonControllers = mutableListOf<SidebarButtonController>()
     private val themeSwatchControllers = mutableListOf<ThemeSwatchController>()
+
+
+
+    // MARK: - Custom Events
+
+    fun setupCustomEvents() {
+        setupDeselectEvent()
+    }
 
 
 
@@ -96,10 +114,22 @@ private object Setup {
 
 
     private fun connectInputBasedContentTransformers() {
-        jq("[data-apply-class-to-root-when-checked]").change { event ->
+        jq("[data-apply-class-to-root-when-checked]").select { event ->
+//            js("console.log(this.checked)")
+//            js("console.log(event.currentTarget.labels[0].classList.value + ' is ' + (event.currentTarget.checked ? 'checked' : 'unchecked'))")
             (event?.currentTarget as? HTMLInputElement)?.let { element ->
                 element.dataset["applyClassToRootWhenChecked"]?.let { newRootClass ->
-                    jq(":root").toggleClass(newRootClass, element.checked)
+                    jq(":root").addClass(newRootClass)
+                }
+            }
+        }
+
+        jq("[data-apply-class-to-root-when-checked]").deselect { event ->
+//            js("console.log(this.checked)")
+//            js("console.log(event.currentTarget.labels[0].classList.value + ' is ' + (event.currentTarget.checked ? 'checked' : 'unchecked'))")
+            (event?.currentTarget as? HTMLInputElement)?.let { element ->
+                element.dataset["applyClassToRootWhenChecked"]?.let { newRootClass ->
+                    jq(":root").removeClass(newRootClass)
                 }
             }
         }

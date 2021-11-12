@@ -2,8 +2,10 @@
 
 package jQueryInterface
 
-import org.w3c.dom.*
-import org.w3c.dom.events.*
+import org.w3c.dom.Document
+import org.w3c.dom.Element
+import org.w3c.dom.events.Event
+import org.w3c.dom.events.EventTarget
 
 
 typealias EventHandler = (Event?) -> Unit
@@ -66,7 +68,7 @@ external class JQuery {
     fun dblclick(handler: (MouseClickEvent) -> Unit): JQuery
     fun click(handler: (MouseClickEvent) -> Unit): JQuery
 
-    fun on(eventNames: String, selector: String = definedExternally, handler: (Event) -> Unit)
+    fun on(eventNames: String, selector: (Any) -> Unit = definedExternally, handler: (Event) -> Unit)
     fun <T> on(eventNames: String, selector: String = definedExternally, data: T? = definedExternally, handler: (Event, T?) -> Unit)
 
     fun trigger(eventName: String): JQuery
@@ -137,6 +139,11 @@ external class JQuery {
     fun size(): Int
 
     operator fun get(index: Int): Element?
+
+    fun filter(selector: String): JQuery
+    fun filter(function: (index: Int, element: Element) -> Boolean): JQuery
+    fun filter(element: Element): JQuery
+    fun filter(selection: JQuery): JQuery
 
     fun each(iterator: JQueryIterator)
 }
